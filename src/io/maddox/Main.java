@@ -29,12 +29,17 @@ import org.powbot.api.script.paint.PaintBuilder;
 import org.powbot.mobile.script.ScriptManager;
 import org.powbot.mobile.service.ScriptUploader;
 
-import java.io.IOException;
+/**
+ * Credits to @Proto && @Dan for Guidance, and information, Credits to Powbot Development Discord Section
+ */
+
+
 
 @ScriptManifest(
         name = "MaddBlackjack",
         description = "Does Blackjacking.",
-        version = "0.01"
+        version = "0.01",
+        author = "Maddox"
 )
 @ScriptConfiguration.List(
         {
@@ -50,9 +55,7 @@ import java.io.IOException;
 
 public class Main extends AbstractScript {
 
-    public static void main(String[] args) throws IOException {
-        ProcessBuilder builder = new ProcessBuilder("C:\\Users\\wesle\\.powbot\\android\\platform-tools\\adb.exe", "-s", "127.0.0.1:5555", "forward", "tcp:61666", "tcp:61666");
-        builder.start();
+    public static void main(String[] args) {
         new ScriptUploader().uploadAndStart("MaddBlackjack", "main", "127.0.0.1:5555", true, false);
     }
     private final Tree tree = new Tree();

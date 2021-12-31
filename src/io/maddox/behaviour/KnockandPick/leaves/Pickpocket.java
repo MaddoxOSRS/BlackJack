@@ -1,7 +1,5 @@
 package io.maddox.behaviour.KnockandPick.leaves;
 
-import io.maddox.behaviour.EscapeCombat.ActivateEscape;
-import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
 import org.powbot.api.Random;
