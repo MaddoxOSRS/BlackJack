@@ -26,7 +26,8 @@ public class Pickpocket extends Leaf {
         GameObject closedcurtain = Objects.stream().at(Configs.curtain).id(1533).nearest().first();
         if (closedcurtain.inViewport() && Configs.house.contains(bandit) && !Configs.house.contains(Players.local())) {
             closedcurtain.interact("Open");
-            Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion(), 250, 5);
+            Condition.wait(() -> Players.local().animation() == -1
+                    && !Players.local().inMotion(), Random.nextInt(500, 750), 50);
         }
         if (!Configs.house.contains(Players.local()) && Configs.house.contains(bandit)) {
             Movement.moveTo(Configs.lure);
@@ -36,7 +37,8 @@ public class Pickpocket extends Leaf {
             if (openedcurtain.inViewport()) {
                 System.out.println("Closing curtain...");
                 openedcurtain.interact("Close");
-                Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion(), Random.nextInt(500, 750), 50);
+                Condition.wait(() -> Players.local().animation() == -1
+                        && !Players.local().inMotion(), Random.nextInt(500, 750), 50);
             }
             String jug = "Jug";
             if (Inventory.stream().name(jug).count() > 0) {

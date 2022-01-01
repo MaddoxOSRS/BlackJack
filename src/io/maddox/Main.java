@@ -116,10 +116,10 @@ public class Main extends AbstractScript {
         tree.addBranches(
                 new TimeoutLeaf(),
                 new FirsRunBranch().addLeafs(new StartLeaf()),
+                new ActivateEscape().addLeafs(new Escape()),
                 new ActivateEat().addLeafs(new Eat()),
                 new ActivateKnockout().addLeafs(new Pickpocket()),
                 new ActivateLure().addLeafs(new Lure()),
-                new ActivateEscape().addLeafs(new Escape()),
                new ActivatetoRestock().addLeafs(new Restock()),
                new ActivateMovetoBandit().addLeafs(new MovetoBandit()),
                new FallbackLeaf()
