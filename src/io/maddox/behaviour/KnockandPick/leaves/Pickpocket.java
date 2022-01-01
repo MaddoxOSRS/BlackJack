@@ -12,12 +12,14 @@ public class Pickpocket extends Leaf {
 
     Npc bandit;
     Npc attackingBandit;
+    boolean killMessage;
     @Override
     public boolean isValid() {
+        killMessage = Npcs.stream().filter(npc -> npc.overheadMessage() == "I'll kill you for that!").isEmpty();
         attackingBandit = Npcs.stream().id(Configs.thug).filter(npc -> npc.interacting().valid()).nearest().first();
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
-        return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
-                && !(bandit.animation() == 390) && !Inventory.stream().id(1993).isEmpty();
+        return killMessage && Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
+                && !Inventory.stream().id(1993).isEmpty();
     }
 
     @Override
@@ -62,7 +64,7 @@ public class Pickpocket extends Leaf {
             if (Condition.wait(() -> Players.local().animation() == 401, Random.nextInt(150,175), 5)) {
                 System.out.println("Pickpocketing...");
                 bandit.interact("Pickpocket");
-                Condition.sleep(Random.nextInt(400, 500));
+                Condition.sleep(Random.nextInt(475, 525));
                 bandit.interact("Pickpocket");
                 Condition.wait(() -> Players.local().animation() == 827 || Chat.canContinue(), 5, 1);
             }

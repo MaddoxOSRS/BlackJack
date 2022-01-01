@@ -10,9 +10,9 @@ public class ActivateKnockout extends Branch {
     Npc attackingBandit;
     @Override
     public boolean isValid() {
-        attackingBandit = Npcs.stream().id(Configs.thug).filter(npc -> npc.interacting().valid()).nearest().first();
+         attackingBandit = Npcs.stream().id(Configs.thug).filter(npc -> npc.interacting().valid()).nearest().first();
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
         return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
-                && !(bandit.animation() == 390) && !Inventory.stream().id(1993).isEmpty();
+                && !Inventory.stream().id(1993).isEmpty();
     }
 }

@@ -14,25 +14,22 @@ public class Escape extends Leaf {
     Npc bandit;
     @Override
     public boolean isValid() {
-        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
-        return Npcs.stream().interactingWithMe().first().valid() && bandit.animation() == 390
-                || DYEHOUSEupstairs.contains(Players.local());
+         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
+        return Players.local().spotAnimation() > 56 || DYEHOUSEupstairs.contains(Players.local());
     }
 
     @Override
     public int onLoop() {
-        GameObject ladderdownstairs = Objects.stream().within(Configs.house).name("Ladder").nearest().first();
+        GameObject ladderdownstairs = Objects.stream().at(dyeLadder).name("Ladder").nearest().first();
         GameObject ladderupstairs = Objects.stream().within(DYEHOUSEupstairs).name("Ladder").nearest().first();
         GameObject stairsdownstairs = Objects.stream().at(menaStairs).name("Ladder").nearest().first();
         GameObject stairsupstairs = Objects.stream().at(menaStairs).name("Ladder").nearest().first();
         System.out.println("here first");
         if (Configs.zone == NorthZone) {
-            if (ladderdownstairs != GameObject.getNil()) {
                 if (Configs.house.contains(Players.local())) {
                     System.out.println("firing inside");
                     ladderdownstairs.interact("Climb-up");
                     Condition.wait(() -> DYEHOUSEupstairs.contains(Players.local()), 250, 10);
-                }
             }
             System.out.println("second first");
             if (DYEHOUSEupstairs.contains(Players.local())) {

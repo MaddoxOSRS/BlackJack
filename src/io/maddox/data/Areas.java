@@ -24,6 +24,7 @@ public class Areas {
     //Tiles
     public static final Tile NoteManager = new Tile(3359, 2989, 0);
     public static final Tile Curtain = new Tile(3364, 2999, 0);
+    public static final Tile dyeLadder = new Tile(3364, 3003, 0);
     public static final Tile menaCurtain = new Tile(3345, 2955, 0);
     public static final Tile dyetoLure = new Tile(3364, 3002, 0);
     public static final Tile menatoLure = new Tile(3343, 2954, 0);
