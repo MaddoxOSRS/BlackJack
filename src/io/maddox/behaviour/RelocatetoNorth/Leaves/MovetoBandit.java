@@ -2,16 +2,17 @@ package io.maddox.behaviour.RelocatetoNorth.Leaves;
 
 import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
-import org.powbot.api.rt4.*;
+import org.powbot.api.rt4.Inventory;
+import org.powbot.api.rt4.Movement;
+import org.powbot.api.rt4.Players;
 
-import static io.maddox.data.Areas.*;
 
 public class MovetoBandit extends Leaf {
 
 
     @Override
     public boolean isValid() {
-        return !Inventory.stream().id(1993).isEmpty() && !Configs.zone.contains(Players.local());
+        return !Inventory.stream().id(Configs.WINE_ID).isEmpty() && !Configs.zone.contains(Players.local());
     }
 
     @Override

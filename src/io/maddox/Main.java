@@ -1,11 +1,16 @@
 package io.maddox;
 
 import io.maddox.behaviour.Eating.ActivateEat;
+import io.maddox.behaviour.Eating.Leaves.DropJug;
 import io.maddox.behaviour.Eating.Leaves.Eat;
+import io.maddox.behaviour.Eating.Leaves.OpenMoneyPouch;
 import io.maddox.behaviour.EscapeCombat.ActivateEscape;
-import io.maddox.behaviour.EscapeCombat.Leaves.Escape;
+import io.maddox.behaviour.EscapeCombat.Leaves.ClimbDown;
+import io.maddox.behaviour.EscapeCombat.Leaves.ClimbUp;
+import io.maddox.behaviour.KnockandPick.ActivateKnockout;
+import io.maddox.behaviour.KnockandPick.leaves.*;
 import io.maddox.behaviour.Luring.ActivateLure;
-import io.maddox.behaviour.Luring.leaves.Lure;
+import io.maddox.behaviour.Luring.leaves.*;
 import io.maddox.behaviour.RelocatetoNorth.ActivateMovetoBandit;
 import io.maddox.behaviour.RelocatetoNorth.Leaves.MovetoBandit;
 import io.maddox.behaviour.Restocking.ActivatetoRestock;
@@ -14,8 +19,6 @@ import io.maddox.behaviour.fallback.FallbackLeaf;
 import io.maddox.behaviour.firstrun.FirsRunBranch;
 import io.maddox.behaviour.firstrun.Leaves.StartLeaf;
 import io.maddox.behaviour.timeout.TimeoutLeaf;
-import io.maddox.behaviour.KnockandPick.ActivateKnockout;
-import io.maddox.behaviour.KnockandPick.leaves.Pickpocket;
 import io.maddox.data.Areas;
 import io.maddox.data.Configs;
 import io.maddox.framework.Tree;
@@ -23,7 +26,10 @@ import org.powbot.api.Color;
 import org.powbot.api.event.BreakEvent;
 import org.powbot.api.rt4.Players;
 import org.powbot.api.rt4.walking.model.Skill;
-import org.powbot.api.script.*;
+import org.powbot.api.script.AbstractScript;
+import org.powbot.api.script.OptionType;
+import org.powbot.api.script.ScriptConfiguration;
+import org.powbot.api.script.ScriptManifest;
 import org.powbot.api.script.paint.Paint;
 import org.powbot.api.script.paint.PaintBuilder;
 import org.powbot.mobile.script.ScriptManager;
@@ -82,6 +88,10 @@ public class Main extends AbstractScript {
             Configs.missingThug=DYEHOUSE2;
             Configs.curtain=Curtain;
             Configs.lure=dyetoLure;
+            Configs.escapeup= dyeLadderdownstairs;
+            Configs.escapedown= dyeLadderupstairs;
+            Configs.upstairs=dyeupstairs;
+            Configs.downstairs=dyedownstairs;
         }
         else if(bandit == 735){
            Configs.house=DYEHOUSE;
@@ -90,6 +100,10 @@ public class Main extends AbstractScript {
             Configs.missingThug=DYEHOUSE2;
             Configs.curtain=Curtain;
             Configs.lure=dyetoLure;
+            Configs.escapeup= dyeLadderdownstairs;
+            Configs.escapedown= dyeLadderupstairs;
+            Configs.upstairs=dyeupstairs;
+            Configs.downstairs=dyedownstairs;
         }
         else if(bandit == 3550){
             Configs.house =menaphiteHouse;
@@ -98,6 +112,9 @@ public class Main extends AbstractScript {
             Configs.missingThug= menaphiteArea;
             Configs.curtain=menaCurtain;
             Configs.lure=menatoLure;
+            Configs.escapeup=menaStairs;
+            Configs.upstairs=menaUpstairs;
+            Configs.downstairs=menaDownstairstile;
         }
         Paint p = new PaintBuilder()
                 .addString("Branch:" , () -> Configs.currentBranch )
@@ -116,11 +133,11 @@ public class Main extends AbstractScript {
         tree.addBranches(
                 new TimeoutLeaf(),
                 new FirsRunBranch().addLeafs(new StartLeaf()),
-                new ActivateEscape().addLeafs(new Escape()),
-                new ActivateEat().addLeafs(new Eat()),
-                new ActivateKnockout().addLeafs(new Pickpocket()),
-                new ActivateLure().addLeafs(new Lure()),
-               new ActivatetoRestock().addLeafs(new Restock()),
+                new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),
+                new ActivateEat().addLeafs(new Eat(), new DropJug(), new OpenMoneyPouch()),
+                new ActivatetoRestock().addLeafs(new Restock()),
+                new ActivateLure().addLeafs( new OpenCurtain(), new Lure(), new ClosetoPickpocket(), new MoveintoHouse(), new OpentoEnterHouse()),
+                new ActivateKnockout().addLeafs(new KnockandPick()),
                new ActivateMovetoBandit().addLeafs(new MovetoBandit()),
                new FallbackLeaf()
         );
