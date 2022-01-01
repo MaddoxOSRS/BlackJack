@@ -54,7 +54,7 @@ public class Pickpocket extends Leaf {
             if (bandit.animation() <= 808) {
                 if (bandit.interact("Knock-Out")) {
                     System.out.println("Knocking out...");
-                    Condition.wait(() -> Players.local().animation() == 401, Random.nextInt(150,175), 5);
+                    Condition.wait(() -> Players.local().animation() == 401 || Chat.canContinue(), Random.nextInt(150,175), 5);
                 }
             }
             if (Condition.wait(() -> Players.local().animation() == 401, Random.nextInt(150,175), 5)) {
@@ -62,7 +62,7 @@ public class Pickpocket extends Leaf {
                 bandit.interact("Pickpocket");
                 Condition.sleep(Random.nextInt(400, 500));
                 bandit.interact("Pickpocket");
-                Condition.wait(() -> Players.local().animation() == 827, 5, 1);
+                Condition.wait(() -> Players.local().animation() == 827 || Chat.canContinue(), 5, 1);
             }
         }
         return 0;

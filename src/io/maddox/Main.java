@@ -65,7 +65,7 @@ import static io.maddox.data.Areas.*;
 public class Main extends AbstractScript {
 
     public static void main(String[] args) {
-        new ScriptUploader().uploadAndStart("MaddBlackjack", "main", "127.0.0.1:5575", true, false);
+        new ScriptUploader().uploadAndStart("MaddBlackjack", "excave", "127.0.0.1:5575", true, false);
     }
     private final Tree tree = new Tree();
 
