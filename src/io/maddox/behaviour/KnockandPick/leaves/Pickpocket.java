@@ -6,7 +6,6 @@ import org.powbot.api.Condition;
 import org.powbot.api.Random;
 import org.powbot.api.rt4.*;
 
-import static io.maddox.data.Areas.*;
 
 
 public class Pickpocket extends Leaf {
@@ -55,7 +54,6 @@ public class Pickpocket extends Leaf {
             if (bandit.animation() <= 808) {
                 if (bandit.interact("Knock-Out")) {
                     System.out.println("Knocking out...");
-                 //   Condition.wait(() ->
                     Condition.wait(() -> Players.local().animation() == 401, Random.nextInt(150,175), 5);
                 }
             }

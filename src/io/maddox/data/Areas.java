@@ -14,19 +14,18 @@ public class Areas {
     public static final Area DYEHOUSE2 = new Area
             (new Tile(3363, 3003, 0),
                     new Tile(3365, 3000, 0));
-    //Area area = new Area(3361, 3006, 3367, 2998);
-    public static final Tile NoteManager = new Tile(3359, 2989, 0);
-    public static final Tile menaCurtain = new Tile(3345, 2955, 0);
     public static final Area Curtain = new Area(new Tile(3364, 2999, 0));
     public static final Area NorthZone = new Area(new Tile(3352, 3006, 0),new Tile(3368, 2996, 0));
     public static final Area SouthZone = new Area(new Tile(3333, 2959, 0),new Tile(3352, 2947, 0));
     public static final Area DYEHOUSEupstairs = new Area(new Tile(3353, 3006, 1),new Tile(3368, 2998, 1));
     public static final Area menaUpstairs = new Area(new Tile(3352, 2961, 1),new Tile(3368, 2952, 1));
     //Tiles
+    public static final Tile NoteManager = new Tile(3359, 2989, 0);
+    public static final Tile menaCurtain = new Tile(3345, 2955, 0);
     public static final Tile dyetoLure = new Tile(3364, 3002, 0);
     public static final Tile menatoLure = new Tile(3343, 2954, 0);
     public static final Tile menaStairs = new Tile(3353, 2958, 0);
-    public static final Tile menaUpStairs = new Tile(3353, 2958, 1);
+    public static final Tile menaUpStairstile = new Tile(3353, 2958, 1);
 
     public static final Tile outsidebanHouse = new Tile(3364, 2997, 0);
 
