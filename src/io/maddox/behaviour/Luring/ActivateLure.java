@@ -15,6 +15,6 @@ public class ActivateLure extends Branch {
     @Override
     public boolean isValid() {
         bandit = Npcs.stream().within(Configs.missingThug).id(Configs.thug).nearest().first();
-        return !Configs.missingThug.contains(bandit) && Configs.zone.contains(Players.local()) && !Inventory.stream().id(1993).isEmpty();
+        return !Configs.house.contains(bandit) && Configs.zone.contains(Players.local()) && !Inventory.stream().id(1993).isEmpty();
     }
 }

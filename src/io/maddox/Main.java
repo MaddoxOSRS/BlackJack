@@ -65,7 +65,7 @@ import static io.maddox.data.Areas.*;
 public class Main extends AbstractScript {
 
     public static void main(String[] args) {
-        new ScriptUploader().uploadAndStart("MaddBlackjack", "main", "127.0.0.1:5555", true, false);
+        new ScriptUploader().uploadAndStart("MaddBlackjack", "main", "127.0.0.1:5575", true, false);
     }
     private final Tree tree = new Tree();
 
@@ -80,6 +80,7 @@ public class Main extends AbstractScript {
             Configs.movement= outsidebanHouse;
             Configs.zone=NorthZone;
             Configs.missingThug=DYEHOUSE2;
+            Configs.curtain=Curtain;
             Configs.lure=dyetoLure;
         }
         else if(bandit == 735){
@@ -87,13 +88,14 @@ public class Main extends AbstractScript {
             Configs.movement= outsidebanHouse;
             Configs.zone=NorthZone;
             Configs.missingThug=DYEHOUSE2;
+            Configs.curtain=Curtain;
             Configs.lure=dyetoLure;
         }
         else if(bandit == 3550){
             Configs.house =menaphiteHouse;
             Configs.movement=outsideMenaHouse;
             Configs.zone=SouthZone;
-            Configs.missingThug= menaphiteHouse;
+            Configs.missingThug= menaphiteArea;
             Configs.curtain=menaCurtain;
             Configs.lure=menatoLure;
         }

@@ -16,14 +16,18 @@ public class Lure extends Leaf {
     @Override
     public boolean isValid() {
         bandit = Npcs.stream().within(Configs.missingThug).id(Configs.thug).nearest().first();
-        return !Configs.missingThug.contains(bandit) && Configs.zone.contains(Players.local()) && !Inventory.stream().id(1993).isEmpty();
+        return !Configs.house.contains(bandit) && Configs.zone.contains(Players.local()) && !Inventory.stream().id(1993).isEmpty();
     }
 
     @Override
     public int onLoop() {
         GameObject closedcurtain = Objects.stream().within(Configs.house).action("Open").name("Curtain").nearest().first();
         Movement.running(false);
-        if (closedcurtain.inViewport() && !Configs.house.contains(bandit) || closedcurtain.inViewport() && Configs.house.contains(bandit)) {
+        if (closedcurtain.inViewport()
+                && !Configs.house.contains(bandit)
+                || closedcurtain.inViewport()
+                && Configs.house.contains(Players.local())
+                && !Configs.house.contains(bandit)) {
             closedcurtain.interact("Open");
             Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion(), Random.nextInt(500, 750), 50);
         }
