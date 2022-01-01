@@ -1,5 +1,6 @@
 package io.maddox.behaviour.Luring.leaves;
 
+import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
 import org.powbot.api.Random;
@@ -14,15 +15,15 @@ public class Lure extends Leaf {
 
     @Override
     public boolean isValid() {
-        bandit = Npcs.stream().within(9).id(735).nearest().first();
-        return !DYEHOUSE2.contains(bandit) && NorthZone.contains(Players.local()) && !Inventory.stream().id(1993).isEmpty();
+        bandit = Npcs.stream().within(Configs.missingThug).id(Configs.thug).nearest().first();
+        return !Configs.missingThug.contains(bandit) && Configs.zone.contains(Players.local()) && !Inventory.stream().id(1993).isEmpty();
     }
 
     @Override
     public int onLoop() {
-        GameObject closedcurtain = Objects.stream().within(DYEHOUSE).action("Open").name("Curtain").nearest().first();
+        GameObject closedcurtain = Objects.stream().within(Configs.house).action("Open").name("Curtain").nearest().first();
         Movement.running(false);
-        if (closedcurtain.inViewport() && !DYEHOUSE2.contains(bandit)) {
+        if (closedcurtain.inViewport() && !Configs.house.contains(bandit) || closedcurtain.inViewport() && Configs.house.contains(bandit)) {
             closedcurtain.interact("Open");
             Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion(), Random.nextInt(500, 750), 50);
         }
@@ -48,10 +49,10 @@ public class Lure extends Leaf {
                 if (Widgets.widget(217).component(5).text().contains("Follow me") && Widgets.widget(217).component(5).visible()) {
                     Chat.clickContinue();
                     Condition.sleep(Random.nextInt(1152, 1757));
-                    Movement.step(outsideHouse);
+                    Movement.step(Configs.movement);
                     Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion(), 250, 5);
-                    Movement.step(toLure);
-                    Condition.wait(() -> DYEHOUSE2.contains(Players.local()), 50, 75);
+                    Movement.step(Configs.lure);
+                    Condition.wait(() -> Configs.missingThug.contains(Players.local()), 50, 75);
                 }
                 else bandit.interact("Lure");
             }

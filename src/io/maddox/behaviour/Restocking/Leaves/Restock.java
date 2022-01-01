@@ -1,5 +1,6 @@
 package io.maddox.behaviour.Restocking.Leaves;
 
+import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
 import org.powbot.api.Random;
@@ -20,9 +21,9 @@ public class Restock extends Leaf {
     public int onLoop() {
         banknotemanager = Npcs.stream().within(7).id(1615).nearest().first();
         generalstore = Npcs.stream().within(7).id(3537).nearest().first();
-        GameObject closedcurtain = Objects.stream().within(DYEHOUSE).id(1533).nearest().first();
+        GameObject closedcurtain = Objects.stream().at(Configs.curtain).id(1533).nearest().first();
         Item notedWines = Inventory.stream().id(1994).first();
-        if (closedcurtain.inViewport()) {
+        if (closedcurtain.inViewport() || closedcurtain.valid()) {
             closedcurtain.interact("Open");
             Condition.sleep(Random.nextInt(1152, 1757));
         }
@@ -39,7 +40,7 @@ public class Restock extends Leaf {
                     Widgets.widget(300).component(1).component(11).click();
                 }
             }
-            if (!Condition.wait(() -> Widgets.widget(300).component(16).visible(), 250, 150)) {
+            if (Condition.wait(() -> !Widgets.widget(300).component(16).visible(), 250, 150)) {
             if (banknotemanager.inViewport()) {
                 if (Game.tab(Game.Tab.INVENTORY)) {
                     if (Inventory.selectedItem().id() == -1) {

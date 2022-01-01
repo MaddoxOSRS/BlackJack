@@ -1,5 +1,6 @@
 package io.maddox.behaviour.KnockandPick.leaves;
 
+import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
 import org.powbot.api.Random;
@@ -14,25 +15,25 @@ public class Pickpocket extends Leaf {
     Npc attackingBandit;
     @Override
     public boolean isValid() {
-        attackingBandit = Npcs.stream().id(735).filter(npc -> npc.interacting().valid()).nearest().first();
-        bandit = Npcs.stream().within(DYEHOUSE).id(735).nearest().first();
-        return DYEHOUSE.contains(Npcs.stream().within(2).id(735).nearest().first()) && !(bandit.animation() == 390) && DYEHOUSE.contains(Players.local()) && !Inventory.stream().id(1993).isEmpty();
+        attackingBandit = Npcs.stream().id(Configs.thug).filter(npc -> npc.interacting().valid()).nearest().first();
+        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
+        return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
+                && !(bandit.animation() == 390) && !Inventory.stream().id(1993).isEmpty();
     }
 
     @Override
     public int onLoop() {
-        GameObject openedcurtain = Objects.stream().within(DYEHOUSE).action("Close").name("Curtain").nearest().first();
-        GameObject closedcurtain = Objects.stream().within(DYEHOUSE).action("Open").name("Curtain").nearest().first();
-        System.out.println("Luring Bandit.");
-        if (closedcurtain.inViewport() && DYEHOUSE.contains(bandit) && !DYEHOUSE.contains(Players.local())) {
+        GameObject openedcurtain = Objects.stream().at(Configs.curtain).id(1534).nearest().first();
+        GameObject closedcurtain = Objects.stream().at(Configs.curtain).id(1533).nearest().first();
+        if (closedcurtain.inViewport() && Configs.house.contains(bandit) && !Configs.house.contains(Players.local())) {
             closedcurtain.interact("Open");
             Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion(), 250, 5);
         }
-        if (!DYEHOUSE.contains(Players.local()) && DYEHOUSE.contains(bandit)) {
-            Movement.moveTo(toLure);
+        if (!Configs.house.contains(Players.local()) && Configs.house.contains(bandit)) {
+            Movement.moveTo(Configs.lure);
             Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion(), 250, 5);
         }
-        if (DYEHOUSE.contains(Players.local()) && DYEHOUSE.contains(bandit)) {
+        if (Configs.house.contains(Players.local()) && Configs.house.contains(bandit)) {
             if (openedcurtain.inViewport()) {
                 System.out.println("Closing curtain...");
                 openedcurtain.interact("Close");
@@ -54,12 +55,16 @@ public class Pickpocket extends Leaf {
             if (bandit.animation() <= 808) {
                 if (bandit.interact("Knock-Out")) {
                     System.out.println("Knocking out...");
-                    Condition.wait(() -> bandit.animation() >= 838, Random.nextInt(50,75), 5);
+                 //   Condition.wait(() ->
+                    Condition.wait(() -> Players.local().animation() == 401, Random.nextInt(150,175), 5);
                 }
             }
-            if (Condition.wait(() -> bandit.animation() >= 838, Random.nextInt(50,75), 5)) {
+            if (Condition.wait(() -> Players.local().animation() == 401, Random.nextInt(150,175), 5)) {
                 System.out.println("Pickpocketing...");
                 bandit.interact("Pickpocket");
+                Condition.sleep(Random.nextInt(400, 500));
+                bandit.interact("Pickpocket");
+                Condition.wait(() -> Players.local().animation() == 827, 5, 1);
             }
         }
         return 0;

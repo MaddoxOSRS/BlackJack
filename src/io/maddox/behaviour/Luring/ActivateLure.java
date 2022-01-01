@@ -1,5 +1,6 @@
 package io.maddox.behaviour.Luring;
 
+import io.maddox.data.Configs;
 import io.maddox.framework.Branch;
 import org.powbot.api.rt4.Inventory;
 import org.powbot.api.rt4.Npc;
@@ -13,7 +14,7 @@ public class ActivateLure extends Branch {
 
     @Override
     public boolean isValid() {
-        bandit = Npcs.stream().within(9).id(735).nearest().first();
-        return !DYEHOUSE2.contains(bandit) && NorthZone.contains(Players.local()) && !Inventory.stream().id(1993).isEmpty();
+        bandit = Npcs.stream().within(Configs.missingThug).id(Configs.thug).nearest().first();
+        return !Configs.missingThug.contains(bandit) && Configs.zone.contains(Players.local()) && !Inventory.stream().id(1993).isEmpty();
     }
 }

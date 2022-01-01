@@ -6,8 +6,8 @@ import io.maddox.behaviour.EscapeCombat.ActivateEscape;
 import io.maddox.behaviour.EscapeCombat.Leaves.Escape;
 import io.maddox.behaviour.Luring.ActivateLure;
 import io.maddox.behaviour.Luring.leaves.Lure;
-import io.maddox.behaviour.RelocatetoNorth.ActivateMovetoNorth;
-import io.maddox.behaviour.RelocatetoNorth.Leaves.MovetoNorth;
+import io.maddox.behaviour.RelocatetoNorth.ActivateMovetoBandit;
+import io.maddox.behaviour.RelocatetoNorth.Leaves.MovetoBandit;
 import io.maddox.behaviour.Restocking.ActivatetoRestock;
 import io.maddox.behaviour.Restocking.Leaves.Restock;
 import io.maddox.behaviour.fallback.FallbackLeaf;
@@ -29,6 +29,8 @@ import org.powbot.api.script.paint.PaintBuilder;
 import org.powbot.mobile.script.ScriptManager;
 import org.powbot.mobile.service.ScriptUploader;
 
+import static io.maddox.data.Areas.*;
+
 /**
  * Credits to @Proto && @Dan for Guidance, and information, Credits to Powbot Development Discord Section
  */
@@ -49,6 +51,13 @@ import org.powbot.mobile.service.ScriptUploader;
                         optionType = OptionType.INTEGER,
                         defaultValue = "50"
                 ),
+                @ScriptConfiguration(
+                        name = "Select Bandit",
+                        description = "What Bandit do you want to use? 737 = Bandit (41), 735 = Bandit (56), 3550 = Menaphite thug(55)",
+                        defaultValue = "735",
+                        allowedValues = {"737", "735", "3550"},
+                        optionType = OptionType.INTEGER
+                )
         }
 )
 
@@ -63,8 +72,31 @@ public class Main extends AbstractScript {
     @Override
     public void onStart() {
         int nomming = getOption("Percentage to Eat");
+        int bandit = getOption("Select Bandit");
         Configs.toEat = nomming;
-
+        Configs.thug = bandit;
+        if(bandit == 737){
+            Configs.house=DYEHOUSE;
+            Configs.movement= outsidebanHouse;
+            Configs.zone=NorthZone;
+            Configs.missingThug=DYEHOUSE2;
+            Configs.lure=dyetoLure;
+        }
+        else if(bandit == 735){
+           Configs.house=DYEHOUSE;
+            Configs.movement= outsidebanHouse;
+            Configs.zone=NorthZone;
+            Configs.missingThug=DYEHOUSE2;
+            Configs.lure=dyetoLure;
+        }
+        else if(bandit == 3550){
+            Configs.house =menaphiteHouse;
+            Configs.movement=outsideMenaHouse;
+            Configs.zone=SouthZone;
+            Configs.missingThug= menaphiteHouse;
+            Configs.curtain=menaCurtain;
+            Configs.lure=menatoLure;
+        }
         Paint p = new PaintBuilder()
                 .addString("Branch:" , () -> Configs.currentBranch )
                 .addString("Leaf:" , () -> Configs.currentLeaf )
@@ -83,11 +115,11 @@ public class Main extends AbstractScript {
                 new TimeoutLeaf(),
                 new FirsRunBranch().addLeafs(new StartLeaf()),
                 new ActivateEat().addLeafs(new Eat()),
-                new ActivateLure().addLeafs(new Lure()),
                 new ActivateKnockout().addLeafs(new Pickpocket()),
+                new ActivateLure().addLeafs(new Lure()),
                 new ActivateEscape().addLeafs(new Escape()),
                new ActivatetoRestock().addLeafs(new Restock()),
-               new ActivateMovetoNorth().addLeafs(new MovetoNorth()),
+               new ActivateMovetoBandit().addLeafs(new MovetoBandit()),
                new FallbackLeaf()
         );
     }
