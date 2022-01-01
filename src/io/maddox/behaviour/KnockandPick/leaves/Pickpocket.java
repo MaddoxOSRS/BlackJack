@@ -11,12 +11,12 @@ public class Pickpocket extends Leaf {
     Npc bandit;
     @Override
     public boolean isValid() {
-        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
-        return bandit.animation() == 838 && Configs.house.contains(Players.local());
+        return Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first().animation() == 838 && Configs.house.contains(Players.local());
     }
 
     @Override
     public int onLoop() {
+        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
         int xp = Skills.experience(Constants.SKILLS_THIEVING);
         if (bandit.animation() == 838 && bandit.interact("Pickpocket")) {
             System.out.println("Pickpocketing...");

@@ -20,18 +20,18 @@ public class Restock extends Leaf {
 
     @Override
     public int onLoop() {
-        banknotemanager = Npcs.stream().within(7).id(Configs.noteManager).nearest().first();
-        generalstore = Npcs.stream().within(7).id(Configs.generalStore).nearest().first();
-        closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
         Item notedWines = Inventory.stream().id(Configs.NOTED_WINE_ID).first();
+        closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
         if(closedcurtain.inViewport()) {
             closedcurtain.interact("Open");
             Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion(), Random.nextInt(500, 750), 50);
         }
-        if (!banknotemanager.valid()) {
+        generalstore = Npcs.stream().within(7).id(Configs.generalStore).nearest().first();
+        if (!generalstore.valid()) {
             Movement.running(true);
             Movement.step(NoteManager);
         }
+        generalstore = Npcs.stream().within(7).id(Configs.generalStore).nearest().first();
         if (generalstore.inViewport()) {
             generalstore.interact("Trade");
             Condition.wait(() -> Widgets.widget(300).component(16).visible(), 250, 150);
@@ -42,6 +42,7 @@ public class Restock extends Leaf {
                     Widgets.widget(300).component(1).component(11).click();
                 }
             }
+            banknotemanager = Npcs.stream().within(7).id(Configs.noteManager).nearest().first();
             if (Condition.wait(() -> !Widgets.widget(300).component(16).visible(), 250, 150)) {
                 if (banknotemanager.inViewport()) {
                     if (Game.tab(Game.Tab.INVENTORY)) {

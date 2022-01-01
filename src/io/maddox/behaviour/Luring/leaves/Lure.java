@@ -9,23 +9,24 @@ import org.powbot.api.rt4.*;
 
 public class Lure extends Leaf {
 
-    Npc bandit;
 
     Npc bandittoLure;
     @Override
     public boolean isValid() {
-        bandittoLure = Npcs.stream().within(Configs.missingThug).id(Configs.thug).nearest().first();
-            bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
-        return !Configs.house.contains(bandit) && Configs.zone.contains(Players.local()) && Inventory.stream().id(Configs.WINE_ID).isNotEmpty();
+        return !Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
+                && Configs.zone.contains(Players.local())
+                && Inventory.stream().id(Configs.WINE_ID).isNotEmpty();
     }
 
     @Override
     public int onLoop() {
+        bandittoLure = Npcs.stream().within(Configs.missingThug).id(Configs.thug).nearest().first();
         if (!bandittoLure.inViewport()) {
-            Camera.turnTo(bandit);
+            Camera.turnTo(bandittoLure);
         }
-        if (!Widgets.widget(217).component(5).visible() && !Chat.chatting() && bandittoLure.interact("Lure")) {
-            Condition.wait(() -> Widgets.widget(217).component(5).visible() || Chat.chatting(), 150, 15);
+        Movement.running(true);
+        if (!Npcs.stream().interactingWithMe().first().valid() && bandittoLure.interact("Lure")) {
+            Condition.wait(() -> Widgets.widget(217).component(5).visible() || Chat.chatting(), 300, 50);
         }
         if (Widgets.widget(217).component(5).visible() || Chat.chatting()) {
             if (Chat.canContinue() && Chat.clickContinue()) {
