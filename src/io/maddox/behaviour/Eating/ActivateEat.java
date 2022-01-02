@@ -10,6 +10,6 @@ public class ActivateEat extends Branch {
 
     @Override
     public boolean isValid() {
-        return Players.local().healthPercent() < Configs.toEat && !Inventory.stream().id(Configs.WINE_ID).isEmpty();
+        return Players.local().healthPercent() < Configs.toEat && !Inventory.stream().id(Configs.WINE_ID).isEmpty() || Inventory.stream().name(Configs.moneyPouch).count() == 28;
     }
 }

@@ -13,7 +13,7 @@ public class ActivateEscape extends Branch {
     @Override
     public boolean isValid() {
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
-        return Players.local().spotAnimation() > 56 || Npcs.stream().interactingWithMe().first().valid() && bandit.animation() == 395
+        return Npcs.stream().interactingWithMe().first().valid() && bandit.animation() == 395
                 || Npcs.stream().interactingWithMe().first().valid() && bandit.animation() == 390 ||
                 !Npcs.stream().interactingWithMe().first().valid() && Configs.upstairs.contains(Players.local());
     }

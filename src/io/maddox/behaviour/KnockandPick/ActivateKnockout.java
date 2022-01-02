@@ -7,14 +7,14 @@ import org.powbot.api.rt4.*;
 
 public class ActivateKnockout extends Branch {
     Npc bandit;
-    GameObject openedcurtain;
+    GameObject closedcurtain;
     @Override
     public boolean isValid() {
-        openedcurtain = Objects.stream().at(Configs.curtain).id(Configs.openCurtain).nearest().first();
+        closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
         return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
-                && !Inventory.stream().id(1993).isEmpty() || bandit.valid() && Configs.house.contains(Players.local()) &&
-                openedcurtain.valid();
+                && !Inventory.stream().id(Configs.WINE_ID).isEmpty() && Configs.house.contains(Players.local()) || bandit.valid() && Configs.house.contains(Players.local()) &&
+                closedcurtain.valid();
     }
 
 }

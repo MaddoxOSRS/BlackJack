@@ -18,6 +18,9 @@ import io.maddox.behaviour.Restocking.Leaves.Restock;
 import io.maddox.behaviour.fallback.FallbackLeaf;
 import io.maddox.behaviour.firstrun.FirsRunBranch;
 import io.maddox.behaviour.firstrun.Leaves.StartLeaf;
+import io.maddox.behaviour.operatecurtains.ActivateCurtain;
+import io.maddox.behaviour.operatecurtains.leaves.CloseCurtain;
+import io.maddox.behaviour.operatecurtains.leaves.OperateCurtain;
 import io.maddox.behaviour.timeout.TimeoutLeaf;
 import io.maddox.data.Areas;
 import io.maddox.data.Configs;
@@ -133,6 +136,7 @@ public class Main extends AbstractScript {
         tree.addBranches(
                 new TimeoutLeaf(),
                 new FirsRunBranch().addLeafs(new StartLeaf()),
+                new ActivateCurtain().addLeafs(new OperateCurtain(), new CloseCurtain()),
                 new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),
                 new ActivateEat().addLeafs(new Eat(), new DropJug(), new OpenMoneyPouch()),
                 new ActivatetoRestock().addLeafs(new Restock()),

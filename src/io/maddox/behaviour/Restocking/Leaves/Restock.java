@@ -22,9 +22,8 @@ public class Restock extends Leaf {
     public int onLoop() {
         Item notedWines = Inventory.stream().id(Configs.NOTED_WINE_ID).first();
         closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
-        if(closedcurtain.inViewport()) {
-            closedcurtain.interact("Open");
-            Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion(), Random.nextInt(500, 750), 50);
+        if(closedcurtain.inViewport() && closedcurtain.interact("Open")) {
+            Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion(), 350, 75);
         }
         generalstore = Npcs.stream().within(7).id(Configs.generalStore).nearest().first();
         if (!generalstore.valid()) {
@@ -46,10 +45,11 @@ public class Restock extends Leaf {
             if (Condition.wait(() -> !Widgets.widget(300).component(16).visible(), 250, 150)) {
                 if (banknotemanager.inViewport()) {
                     if (Game.tab(Game.Tab.INVENTORY)) {
-                        if (Inventory.selectedItem().id() == -1) {
-                            notedWines.interact("Use");
+                        if (!notedWines.interact("Use")) return 0;
+                        Condition.wait(() -> Inventory.selectedItemIndex() == notedWines.inventoryIndex(), 500, 3);
+                        if (Inventory.selectedItemIndex() != notedWines.inventoryIndex()) return 0;
                             Condition.wait(() -> Inventory.selectedItem() != Item.getNil(), 100, 3);
-                            banknotemanager.click();
+                        if (!banknotemanager.interact("Use")) return 0;
                             Condition.wait(() -> Widgets.widget(219).component(1).component(3).visible(), 250, 150);
                         }
                     }
@@ -59,7 +59,6 @@ public class Restock extends Leaf {
                     }
                 }
             }
-        }
         return 0;
     }
-}
+ }
