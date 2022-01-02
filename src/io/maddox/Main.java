@@ -140,8 +140,8 @@ public class Main extends AbstractScript {
                 new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),
                 new ActivateEat().addLeafs(new Eat(), new DropJug(), new OpenMoneyPouch()),
                 new ActivatetoRestock().addLeafs(new Restock()),
-                new ActivateLure().addLeafs( new OpenCurtain(), new Lure(), new ClosetoPickpocket(), new MoveintoHouse(), new OpentoEnterHouse()),
-                new ActivateKnockout().addLeafs(new KnockandPick(), new ClosetoPickpocket()),
+                new ActivateLure().addLeafs( new OpenCurtain(), new Lure(), new MoveintoHouse(), new OpentoEnterHouse()),
+                new ActivateKnockout().addLeafs(new KnockandPick()),
                new ActivateMovetoBandit().addLeafs(new MovetoBandit()),
                new FallbackLeaf()
         );
