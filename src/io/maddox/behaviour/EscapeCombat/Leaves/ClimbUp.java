@@ -25,7 +25,7 @@ public class ClimbUp extends Leaf {
             if (Configs.house.contains(Players.local())) {
                 System.out.println("firing inside");
                 ladderdownstairs.interact("Climb-up");
-                Condition.wait(() -> Configs.upstairs.contains(Players.local()), 250, 75);
+                Condition.wait(() -> Configs.upstairs.contains(Players.local()), 250, 10);
             } else {
                 GameObject closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
                 if (closedcurtain.inViewport() || closedcurtain.valid()) {
