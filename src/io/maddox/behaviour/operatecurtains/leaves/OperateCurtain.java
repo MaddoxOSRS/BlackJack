@@ -22,17 +22,12 @@ public class OperateCurtain extends Leaf {
     public int onLoop() {
         closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
         Movement.running(false);
-        if (!Npcs.stream().interactingWithMe().first().valid() && closedcurtain.inViewport()) {
+        if (Npcs.stream().interactingWithMe().isEmpty() && closedcurtain.inViewport()) {
             System.out.println("Opening curtain...");
             closedcurtain.interact("Open");
-            Condition.wait(() -> !closedcurtain.valid() && Players.local().animation() == -1
+            Condition.wait(() -> !closedcurtain.valid()
                     && !Players.local().inMotion(), 250, 50);
         }
-            if (!closedcurtain.valid()) {
-                Movement.walkTo(Configs.downstairs);
-                Condition.wait(() -> Players.local().animation() == -1 && Configs.house.contains(Players.local())
-                        && !Players.local().inMotion(), 175, 50);
-            }
         return 0;
     }
 }

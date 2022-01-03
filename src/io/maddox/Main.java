@@ -1,16 +1,26 @@
 package io.maddox;
 
-import io.maddox.behaviour.Eating.ActivateEat;
+import io.maddox.behaviour.Eating.InteractwithJugandPouch;
 import io.maddox.behaviour.Eating.Leaves.DropJug;
-import io.maddox.behaviour.Eating.Leaves.Eat;
 import io.maddox.behaviour.Eating.Leaves.OpenMoneyPouch;
-import io.maddox.behaviour.EscapeCombat.ActivateEscape;
-import io.maddox.behaviour.EscapeCombat.Leaves.ClimbDown;
-import io.maddox.behaviour.EscapeCombat.Leaves.ClimbUp;
+import io.maddox.behaviour.EscapeCombatNorth.ActivateEscape;
+import io.maddox.behaviour.EscapeCombatNorth.Leaves.ClimbDown;
+import io.maddox.behaviour.EscapeCombatNorth.Leaves.ClimbUp;
+import io.maddox.behaviour.EscapeCombatSouth.ActivateEscapeSouth;
+import io.maddox.behaviour.EscapeCombatSouth.Leaves.ClimbDownSouth;
+import io.maddox.behaviour.EscapeCombatSouth.Leaves.EscapeSouth;
+import io.maddox.behaviour.HopWorlds.ActivateWorldHop;
+import io.maddox.behaviour.HopWorlds.Leaves.HopWorld;
 import io.maddox.behaviour.KnockandPick.ActivateKnockout;
-import io.maddox.behaviour.KnockandPick.leaves.*;
+import io.maddox.behaviour.KnockandPick.leaves.Eat;
+import io.maddox.behaviour.KnockandPick.leaves.IdleRestart;
+import io.maddox.behaviour.KnockandPick.leaves.KnockandPick;
+import io.maddox.behaviour.KnockandPick.leaves.PickPocket;
 import io.maddox.behaviour.Luring.ActivateLure;
-import io.maddox.behaviour.Luring.leaves.*;
+import io.maddox.behaviour.Luring.leaves.Lure;
+import io.maddox.behaviour.Luring.leaves.MoveintoHouse;
+import io.maddox.behaviour.Luring.leaves.OpenCurtain;
+import io.maddox.behaviour.Luring.leaves.OpentoEnterHouse;
 import io.maddox.behaviour.RelocatetoNorth.ActivateMovetoBandit;
 import io.maddox.behaviour.RelocatetoNorth.Leaves.MovetoBandit;
 import io.maddox.behaviour.Restocking.ActivatetoRestock;
@@ -39,6 +49,7 @@ import org.powbot.mobile.script.ScriptManager;
 import org.powbot.mobile.service.ScriptUploader;
 
 import static io.maddox.data.Areas.*;
+import static io.maddox.data.Configs.*;
 
 /**
  * Credits to @Proto && @Dan for Guidance, and information, Credits to Powbot Development Discord Section
@@ -62,7 +73,7 @@ import static io.maddox.data.Areas.*;
                 ),
                 @ScriptConfiguration(
                         name = "Select Bandit",
-                        description = "What Bandit do you want to use? 737 = Bandit (41), 735 = Bandit (56), 3550 = Menaphite thug(55)",
+                        description = "What Bandit do you want to use? 737 = Bandit (41), 739 = Bandit (56), 3550 = Menaphite thug(55)",
                         defaultValue = "735",
                         allowedValues = {"737", "735", "3550"},
                         optionType = OptionType.INTEGER
@@ -116,9 +127,11 @@ public class Main extends AbstractScript {
             Configs.curtain=menaCurtain;
             Configs.lure=menatoLure;
             Configs.escapeup=menaStairs;
+            Configs.escapedown=menaUpStairstile;
             Configs.upstairs=menaUpstairs;
-            Configs.downstairs=menaDownstairstile;
+            Configs.downstairsMena=menaDownstairs;
         }
+        Configs.timeIdle = System.currentTimeMillis();
         Paint p = new PaintBuilder()
                 .addString("Branch:" , () -> Configs.currentBranch )
                 .addString("Leaf:" , () -> Configs.currentLeaf )
@@ -135,15 +148,17 @@ public class Main extends AbstractScript {
     private void instantiateTree() {
         tree.addBranches(
                 new TimeoutLeaf(),
+              //  new ActivateWorldHop().addLeafs(new HopWorld()), /* in testing */
                 new FirsRunBranch().addLeafs(new StartLeaf()),
                 new ActivateCurtain().addLeafs(new OperateCurtain(), new CloseCurtain()),
                 new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),
-                new ActivateEat().addLeafs(new Eat(), new DropJug(), new OpenMoneyPouch()),
+                new ActivateEscapeSouth().addLeafs(new EscapeSouth(), new ClimbDownSouth()),
+                new InteractwithJugandPouch().addLeafs(new DropJug(), new OpenMoneyPouch()),
                 new ActivatetoRestock().addLeafs(new Restock()),
                 new ActivateLure().addLeafs( new OpenCurtain(), new Lure(), new MoveintoHouse(), new OpentoEnterHouse()),
-                new ActivateKnockout().addLeafs(new KnockandPick()),
-               new ActivateMovetoBandit().addLeafs(new MovetoBandit()),
-               new FallbackLeaf()
+                new ActivateKnockout().addLeafs(new Eat(), new KnockandPick(), new PickPocket(), new IdleRestart()),
+                new ActivateMovetoBandit().addLeafs(new MovetoBandit()),
+                new FallbackLeaf()
         );
     }
 

@@ -22,7 +22,7 @@ public class OpentoEnterHouse extends Leaf {
     public int onLoop() {
         closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
         Movement.running(false);
-        if (!Npcs.stream().interactingWithMe().first().valid() && closedcurtain.inViewport()) {
+        if (Npcs.stream().interactingWithMe().isEmpty() && closedcurtain.inViewport()) {
             System.out.println("Closing curtain...");
             closedcurtain.interact("Open");
             Condition.wait(() -> Players.local().animation() == -1

@@ -22,11 +22,11 @@ public class CloseCurtain extends Leaf {
     public int onLoop() {
         openedcurtain = Objects.stream().at(Configs.curtain).id(Configs.openCurtain).nearest().first();
         Movement.running(false);
-        if (Npcs.stream().interactingWithMe().first().valid() && openedcurtain.valid()
-                || !Npcs.stream().interactingWithMe().first().valid() && openedcurtain.valid()) {
+        if (Npcs.stream().interactingWithMe().isEmpty() && openedcurtain.valid()
+                || !Npcs.stream().interactingWithMe().isEmpty() && openedcurtain.valid()) {
             System.out.println("Closing curtain...");
             if (!openedcurtain.interact("Close")) {
-                Condition.wait(() -> Players.local().animation() == -1 && !openedcurtain.valid()
+                Condition.wait(() -> !openedcurtain.valid()
                         && !Players.local().inMotion(), 250, 50);
             }
 

@@ -12,6 +12,6 @@ public class ActivateLure extends Branch {
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
         return !Configs.house.contains(bandit)
                 && Configs.zone.contains(Players.local())
-                && Inventory.stream().id(Configs.WINE_ID).isNotEmpty();
+                && Inventory.stream().id(Configs.WINE_ID).isNotEmpty() || Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first().valid() && !Configs.house.contains(Players.local());
     }
 }

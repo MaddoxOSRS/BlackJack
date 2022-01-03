@@ -5,11 +5,13 @@ import io.maddox.framework.Branch;
 import org.powbot.api.rt4.Inventory;
 import org.powbot.api.rt4.Players;
 
+import static io.maddox.data.Configs.jug;
 
-public class ActivateEat extends Branch {
+
+public class InteractwithJugandPouch extends Branch {
 
     @Override
     public boolean isValid() {
-        return Players.local().healthPercent() < Configs.toEat && !Inventory.stream().id(Configs.WINE_ID).isEmpty() || Inventory.stream().name(Configs.moneyPouch).count() == 28;
+        return Inventory.stream().name(Configs.moneyPouch).isNotEmpty() || Inventory.stream().name(Configs.jug).count() > 0;
     }
 }

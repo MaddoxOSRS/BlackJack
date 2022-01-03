@@ -21,7 +21,7 @@ public class Areas {
     public static final Area SouthZone = new Area(new Tile(3333, 2959, 0),new Tile(3352, 2947, 0));
     public static final Area DYEHOUSEupstairs = new Area(new Tile(3353, 3006, 1),new Tile(3368, 2998, 1));
     public static final Area menaUpstairs = new Area(new Tile(3351, 2960, 1),new Tile(3356, 2954, 1));
-
+    public static final Area menaDownstairs = new Area(new Tile(3351, 2960, 0),new Tile(3356, 2954, 0));
     public static final Area dyeupstairs = new Area(new Tile(3353, 3006, 1),new Tile(3368, 2998, 1));
 
     //Tiles
