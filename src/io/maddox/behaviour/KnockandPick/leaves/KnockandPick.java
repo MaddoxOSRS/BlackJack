@@ -5,7 +5,6 @@ import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
 import org.powbot.api.Random;
 import org.powbot.api.rt4.*;
-import org.powbot.api.rt4.walking.model.Skill;
 
 import static io.maddox.data.Configs.*;
 import static java.lang.System.out;
@@ -38,16 +37,16 @@ public class KnockandPick extends Leaf {
         if (!bandit.inViewport()) {
             Camera.turnTo(bandit);
         }
-        int xp = Skills.experience(Constants.SKILLS_THIEVING);
         if (bandit.valid()) {
             if (knockCount < 1 && bandit.animation() <= 808 && bandit.interact("Knock-Out")) {
                 out.println("Knocking out...");
                 pickCount = 0;
+                Condition.wait(() ->
+                        Players.local().animation() == 401
+                        || Chat.canContinue(), 250, 1);
                 knockCount++;
-                Condition.wait(() -> xp < Skills.experience(Constants.SKILLS_THIEVING) || Chat.canContinue(), 100, 35);
 
             }
-
         }
         return 0;
     }

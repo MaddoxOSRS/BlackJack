@@ -21,6 +21,8 @@ public class Eat extends Leaf {
     public int onLoop() {
         Item wine = Inventory.stream().id(Configs.WINE_ID).first();
         if (wine.valid()) {
+            knockCount = 0;
+            pickCount = 0;
             wine.interact("Drink");
             }
         return 0;

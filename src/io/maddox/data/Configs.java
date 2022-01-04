@@ -4,10 +4,8 @@ package io.maddox.data;
 import org.powbot.api.Area;
 import org.powbot.api.Condition;
 import org.powbot.api.Tile;
-import org.powbot.api.rt4.Npcs;
-import org.powbot.api.rt4.Players;
-import org.powbot.api.rt4.Widgets;
-import org.powbot.api.rt4.World;
+import org.powbot.api.rt4.*;
+import org.powbot.api.rt4.walking.model.Skill;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -68,9 +66,20 @@ public class Configs {
     public static int WINE_ID = 1993;
     public static int NOTED_WINE_ID = 1994;
     public static int toEat = 0;
+    public static int xp = Skills.experience(Constants.SKILLS_THIEVING);
 
     public static boolean ohShit() {
-        Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "I'll kill you for that").isNotEmpty();
+        Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "I'll kill you for that").isEmpty();
+        return false;
+    }
+
+    public static boolean snooze() {
+        Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "Zzzzzz").isEmpty();
+        return false;
+    }
+
+    public static boolean wotudo() {
+        Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "What do you think ").isEmpty();
         return false;
     }
 
@@ -78,7 +87,19 @@ public class Configs {
         Players.stream().within(Configs.house);
         return false;
     }
-//world switcher
+
+    public static boolean isIdle() {
+        if (Skill.Thieving.experience() > lastXPDrop) {
+            lastXPDrop = Skill.Thieving.experience();
+            timeIdle = System.currentTimeMillis();
+        }
+        if ((Configs.timeFromMark(timeIdle)) >= 10000) {
+            System.out.println("Idle for 10 seconds, restarting leaf");
+        }
+        return false;
+    }
+
+    //world switcher
     public static int loggedintoWorld() {
         String world_text = Widgets.widget(69).component(2).text();
         current_world = Integer.parseInt(world_text.substring(world_text.length() - 3));

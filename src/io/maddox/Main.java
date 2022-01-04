@@ -148,7 +148,7 @@ public class Main extends AbstractScript {
     private void instantiateTree() {
         tree.addBranches(
                 new TimeoutLeaf(),
-              //  new ActivateWorldHop().addLeafs(new HopWorld()), /* in testing */
+                new ActivateWorldHop().addLeafs(new HopWorld()), /* in testing */
                 new FirsRunBranch().addLeafs(new StartLeaf()),
                 new ActivateCurtain().addLeafs(new OperateCurtain(), new CloseCurtain()),
                 new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),

@@ -5,6 +5,8 @@ import io.maddox.data.Configs;
 import io.maddox.data.WorldHopping;
 import io.maddox.framework.Leaf;
 
+import static io.maddox.data.Configs.knockCount;
+import static io.maddox.data.Configs.pickCount;
 
 
 public class HopWorld extends Leaf {
@@ -18,6 +20,8 @@ public class HopWorld extends Leaf {
     @Override
     public int onLoop() {
         if (Configs.nearPlayer()) {
+            knockCount = 0;
+            pickCount = 0;
             WorldHopping.Hop();
         }
         return 0;

@@ -6,6 +6,7 @@ import org.powbot.api.Condition;
 import org.powbot.api.Random;
 import org.powbot.api.rt4.*;
 import org.powbot.api.rt4.walking.model.Skill;
+import org.powbot.mobile.script.ScriptManager;
 
 import static io.maddox.data.Configs.*;
 import static java.lang.System.out;
@@ -24,17 +25,15 @@ public class PickPocket extends Leaf {
 
     @Override
     public int onLoop() {
-
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
         if (!bandit.inViewport()) {
             Camera.turnTo(bandit);
         }
-        int xp = Skills.experience(Constants.SKILLS_THIEVING);
-
         if (bandit.animation() == 838 && pickCount < 2) { //Bandit is knocked out and we've pickpocketted less than twice
             if (bandit.interact("Pickpocket")) {
                 System.out.println("Pickpocketing...");
-                Condition.wait(() -> xp < Skill.Thieving.experience() || Chat.canContinue(), 20, 20);
+                Condition.wait(() -> Configs.xp < Skills.experience(Constants.SKILLS_THIEVING)
+                        || Chat.canContinue(), 250, 1);
                 pickCount++;
                 System.out.println("pick count: " + pickCount);
             }
@@ -42,9 +41,21 @@ public class PickPocket extends Leaf {
                 knockCount = 0;
                 System.out.println("resetting knock count...");
                 return 0;
+            } else {
+                if (Configs.wotudo()) {
+                    knockCount = 0;
+                    pickCount = 0;
+                    out.println("shit wotudo " + wotudo());
+                }
+                    if (Skill.Thieving.experience() > lastXPDrop) {
+                        lastXPDrop = Skill.Thieving.experience();
+                        timeIdle = System.currentTimeMillis();
+                    }
+                    if ((Configs.timeFromMark(timeIdle)) >= 10000) {
+                        System.out.println("Idle for 10 seconds, restarting leaf");
+                }
             }
         }
-
         return 0;
     }
 }
