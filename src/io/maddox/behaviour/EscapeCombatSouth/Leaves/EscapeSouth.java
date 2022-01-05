@@ -37,12 +37,6 @@ public class EscapeSouth extends Leaf {
                             stairsdownstairs.interact("Climb-up");
                             Condition.wait(() -> Configs.upstairs.contains(Players.local()), 250, 10);
         }
-        if ((Configs.timeFromMark(timeIdle)) >= 5000) {
-            System.out.println("Idle for 5 seconds, restarting leaf");
-            pickCount = 0;
-            knockCount = 0;
-            return 0;
-        }
         return 0;
     }
 }

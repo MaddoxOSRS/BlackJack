@@ -1,12 +1,15 @@
 package io.maddox.data;
 
 
+import io.maddox.Main;
 import org.powbot.api.Area;
 import org.powbot.api.Condition;
 import org.powbot.api.Tile;
+import org.powbot.api.event.MessageEvent;
 import org.powbot.api.rt4.*;
 import org.powbot.api.rt4.walking.model.Skill;
 
+import static io.maddox.Main.*;
 import static java.lang.System.currentTimeMillis;
 
 public class Configs {
@@ -38,6 +41,8 @@ public class Configs {
     public static int current_world = 1;
     public static int last_world = 2;
 
+    public static boolean cantKnock = false;
+
     //thieve counter
     public static int pickCount;
     public static int knockCount = 0;
@@ -54,7 +59,7 @@ public class Configs {
 
     //int stuff
 
-    public static String moneyPouch = "Money Pouch";
+    public static String moneyPouch = "Coin Pouch";
     public static String jug = "Jug";
     public static int climbdownladder = 6260;
     public static int noteManager = 1615;
@@ -70,6 +75,18 @@ public class Configs {
 
     public static boolean ohShit() {
         Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "I'll kill you for that").isEmpty();
+       // System.out.println("Yeeted for the ohshit");
+        return false;
+    }
+
+    public static boolean inCombat() {
+        Npcs.stream().interactingWithMe().isEmpty();
+      //  System.out.println("Yeeted for the inCombat");
+        return false;
+    }
+
+    public static boolean timetoJet() {
+        Players.local().healthBarVisible();
         return false;
     }
 
@@ -85,17 +102,7 @@ public class Configs {
 
     public static boolean nearPlayer() {
         Players.stream().within(Configs.house);
-        return false;
-    }
-
-    public static boolean isIdle() {
-        if (Skill.Thieving.experience() > lastXPDrop) {
-            lastXPDrop = Skill.Thieving.experience();
-            timeIdle = System.currentTimeMillis();
-        }
-        if ((Configs.timeFromMark(timeIdle)) >= 10000) {
-            System.out.println("Idle for 10 seconds, restarting leaf");
-        }
+       // System.out.println("Yeeted for the near player");
         return false;
     }
 

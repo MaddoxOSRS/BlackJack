@@ -1,8 +1,7 @@
 package io.maddox;
 
-import io.maddox.behaviour.Eating.InteractwithJugandPouch;
-import io.maddox.behaviour.Eating.Leaves.DropJug;
-import io.maddox.behaviour.Eating.Leaves.OpenMoneyPouch;
+import com.google.common.eventbus.Subscribe;
+import com.sun.deploy.net.DownloadException;
 import io.maddox.behaviour.EscapeCombatNorth.ActivateEscape;
 import io.maddox.behaviour.EscapeCombatNorth.Leaves.ClimbDown;
 import io.maddox.behaviour.EscapeCombatNorth.Leaves.ClimbUp;
@@ -13,7 +12,6 @@ import io.maddox.behaviour.HopWorlds.ActivateWorldHop;
 import io.maddox.behaviour.HopWorlds.Leaves.HopWorld;
 import io.maddox.behaviour.KnockandPick.ActivateKnockout;
 import io.maddox.behaviour.KnockandPick.leaves.Eat;
-import io.maddox.behaviour.KnockandPick.leaves.IdleRestart;
 import io.maddox.behaviour.KnockandPick.leaves.KnockandPick;
 import io.maddox.behaviour.KnockandPick.leaves.PickPocket;
 import io.maddox.behaviour.Luring.ActivateLure;
@@ -37,6 +35,8 @@ import io.maddox.data.Configs;
 import io.maddox.framework.Tree;
 import org.powbot.api.Color;
 import org.powbot.api.event.BreakEvent;
+import org.powbot.api.event.MessageEvent;
+import org.powbot.api.event.SkillExpGainedEvent;
 import org.powbot.api.rt4.Players;
 import org.powbot.api.rt4.walking.model.Skill;
 import org.powbot.api.script.AbstractScript;
@@ -153,13 +153,12 @@ public class Main extends AbstractScript {
                 new ActivateCurtain().addLeafs(new OperateCurtain(), new CloseCurtain()),
                 new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),
                 new ActivateEscapeSouth().addLeafs(new EscapeSouth(), new ClimbDownSouth()),
-                new InteractwithJugandPouch().addLeafs(new DropJug(), new OpenMoneyPouch()),
+               // new InteractwithJugandPouch().addLeafs(/*(new DropJug(),*/ new OpenMoneyPouch()),
                 new ActivatetoRestock().addLeafs(new Restock()),
                 new ActivateLure().addLeafs( new OpenCurtain(), new Lure(), new MoveintoHouse(), new OpentoEnterHouse()),
-                new ActivateKnockout().addLeafs(new Eat(), new KnockandPick(), new PickPocket(), new IdleRestart()),
+                new ActivateKnockout().addLeafs(new Eat(), new KnockandPick()),
                 new ActivateMovetoBandit().addLeafs(new MovetoBandit()),
-                new FallbackLeaf()
-        );
+                new FallbackLeaf());
     }
 
     @Override
@@ -171,6 +170,18 @@ public class Main extends AbstractScript {
         tree.onLoop();
     }
 
+    @Subscribe
+    public static void onMessage(MessageEvent c) {
+        String text = c.getMessage();
+        if(text.contains("during combat")) {
+            cantKnock = true;
+        } else if (text.contains("You smack")) {
+                cantKnock = false;
+        }
+    }
+
+
+ @Subscribe
     public void onBreak(BreakEvent e) {
         if(Areas.DYEHOUSE.contains(Players.local())) {
             e.delay(10000);

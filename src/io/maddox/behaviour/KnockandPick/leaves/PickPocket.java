@@ -25,35 +25,22 @@ public class PickPocket extends Leaf {
 
     @Override
     public int onLoop() {
-        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
-        if (!bandit.inViewport()) {
-            Camera.turnTo(bandit);
-        }
-        if (bandit.animation() == 838 && pickCount < 2) { //Bandit is knocked out and we've pickpocketted less than twice
-            if (bandit.interact("Pickpocket")) {
+        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().firstOrNull();
+        if (bandit.animation() == 838 && bandit.interact("Pickpocket")) { //Bandit is knocked out and we've pickpocketted less than twice
+            Condition.wait(() -> Configs.xp < Skills.experience(Constants.SKILLS_THIEVING)
+                    || Chat.canContinue(), Random.nextInt(600, 750), 5);
+            pickCount++;
+            if (!Players.local().healthBarVisible()) {
+                bandit.interact("Pickpocket");
+                pickCount++;
                 System.out.println("Pickpocketing...");
                 Condition.wait(() -> Configs.xp < Skills.experience(Constants.SKILLS_THIEVING)
-                        || Chat.canContinue(), 250, 1);
-                pickCount++;
-                System.out.println("pick count: " + pickCount);
+                        || Chat.canContinue(), Random.nextInt(600, 750), 5);
             }
             if (pickCount >= 2) {
                 knockCount = 0;
                 System.out.println("resetting knock count...");
                 return 0;
-            } else {
-                if (Configs.wotudo()) {
-                    knockCount = 0;
-                    pickCount = 0;
-                    out.println("shit wotudo " + wotudo());
-                }
-                    if (Skill.Thieving.experience() > lastXPDrop) {
-                        lastXPDrop = Skill.Thieving.experience();
-                        timeIdle = System.currentTimeMillis();
-                    }
-                    if ((Configs.timeFromMark(timeIdle)) >= 10000) {
-                        System.out.println("Idle for 10 seconds, restarting leaf");
-                }
             }
         }
         return 0;

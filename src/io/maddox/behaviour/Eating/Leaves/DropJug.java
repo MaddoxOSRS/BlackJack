@@ -23,7 +23,7 @@ public class DropJug extends Leaf {
           if(emptyJug.interact("Drop")) {
               knockCount = 0;
               pickCount = 0;
-              Condition.wait(() -> Inventory.stream().name(Configs.jug).count() < 1, 1000, 150);
+              Condition.wait(() -> Inventory.stream().name(Configs.jug).isEmpty(), 1000, 5);
           }
 
         return 0;

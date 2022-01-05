@@ -36,6 +36,8 @@ public class Lure extends Leaf {
                         Condition.wait(() -> Widgets.widget(231).component(5).visible(), 250, 100);
                         if (Condition.wait(() -> Widgets.widget(231).component(5).visible(), 250, 100)) {
                             if (Widgets.widget(231).component(5).text().contains("I'm busy")) {
+                                Chat.clickContinue();
+                                Movement.step(Configs.movement);
                                 return 0;
                             } else {
                                 if (Widgets.widget(231).component(5).text().contains("What is it")) {
