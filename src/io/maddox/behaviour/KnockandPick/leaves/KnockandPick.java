@@ -28,7 +28,7 @@ public class KnockandPick extends Leaf {
     public int onLoop() {
         openedcurtain = Objects.stream().at(curtain).id(openCurtain).nearest().first();
         Movement.running(false);
-        if (Configs.inCombat() && openedcurtain.valid()
+        if (Configs.inCombat() && openedcurtain.valid()  //Closes curtain in event someone opens it or when you come back from luring / restock
                 || !Configs.inCombat() && openedcurtain.valid()) {
             out.println("Closing curtain...");
             openedcurtain.interact("Close");
@@ -42,7 +42,7 @@ public class KnockandPick extends Leaf {
                     Players.local().animation() == 401
                             || Chat.canContinue(), Random.nextInt(450, 500), 5);
         } else {
-            if (Configs.ohShit()) {
+            if (Configs.ohShit()) {  // Bandit says I'll kill you for that, Must interrupt here.
                 out.println("firing ohshit");
                 return 0;
             }

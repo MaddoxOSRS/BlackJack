@@ -1,26 +1,20 @@
 package io.maddox;
 
 import com.google.common.eventbus.Subscribe;
-import com.sun.deploy.net.DownloadException;
 import io.maddox.behaviour.EscapeCombatNorth.ActivateEscape;
 import io.maddox.behaviour.EscapeCombatNorth.Leaves.ClimbDown;
 import io.maddox.behaviour.EscapeCombatNorth.Leaves.ClimbUp;
 import io.maddox.behaviour.EscapeCombatSouth.ActivateEscapeSouth;
 import io.maddox.behaviour.EscapeCombatSouth.Leaves.ClimbDownSouth;
 import io.maddox.behaviour.EscapeCombatSouth.Leaves.EscapeSouth;
-import io.maddox.behaviour.HopWorlds.ActivateWorldHop;
-import io.maddox.behaviour.HopWorlds.Leaves.HopWorld;
 import io.maddox.behaviour.KnockandPick.ActivateKnockout;
 import io.maddox.behaviour.KnockandPick.leaves.Eat;
 import io.maddox.behaviour.KnockandPick.leaves.KnockandPick;
-import io.maddox.behaviour.KnockandPick.leaves.PickPocket;
 import io.maddox.behaviour.Luring.ActivateLure;
 import io.maddox.behaviour.Luring.leaves.Lure;
 import io.maddox.behaviour.Luring.leaves.MoveintoHouse;
 import io.maddox.behaviour.Luring.leaves.OpenCurtain;
 import io.maddox.behaviour.Luring.leaves.OpentoEnterHouse;
-import io.maddox.behaviour.RelocatetoNorth.ActivateMovetoBandit;
-import io.maddox.behaviour.RelocatetoNorth.Leaves.MovetoBandit;
 import io.maddox.behaviour.Restocking.ActivatetoRestock;
 import io.maddox.behaviour.Restocking.Leaves.Restock;
 import io.maddox.behaviour.fallback.FallbackLeaf;
@@ -192,7 +186,7 @@ public class Main extends AbstractScript {
 
  @Subscribe
     public void onBreak(BreakEvent e) {
-        if(Areas.DYEHOUSE.contains(Players.local())) {
+        if(upstairs.contains(Players.local())) {
             e.delay(10000);
         }
     }
