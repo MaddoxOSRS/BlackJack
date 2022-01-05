@@ -35,36 +35,30 @@ public class KnockandPick extends Leaf {
             Condition.wait(() -> Players.local().animation() == -1
                     && !Players.local().inMotion(), Random.nextInt(500, 750), 50);
         }
-        int xp = Skills.experience(Constants.SKILLS_THIEVING);
-            bandit = Npcs.stream().within(house).id(thug).nearest().firstOrNull();
+        bandit = Npcs.stream().within(house).id(thug).nearest().firstOrNull();
         if (bandit != null && bandit.interact("Knock-Out")) {
             out.println("Knocking out...");
             Condition.wait(() ->
-                    bandit.animation() == 838
-                            || Chat.canContinue() || Players.local().animation() == -1
-                            && !Players.local().inMotion(), Random.nextInt(700, 800), 2);
-        }
-        if (Configs.ohShit()) {
-            out.println("firing ohshit");
-            if (bandit != null && bandit.interact("Knock-Out")) {
-                out.println("Knocking out...");
-                Condition.wait(() ->
-                        bandit.animation() == 838
-                                || Chat.canContinue() || Players.local().animation() == -1
-                                && !Players.local().inMotion(), Random.nextInt(700, 800), 2);
+                    Players.local().animation() == 401
+                            || Chat.canContinue(), Random.nextInt(450, 500), 5);
+        } else {
+            if (Configs.ohShit()) {
+                out.println("firing ohshit");
+                return 0;
             }
         }
-            if (bandit.animation() == 838 && bandit.interact("Pickpocket")) { //Bandit is knocked out and we've pickpocketted less than twice
-                Condition.wait(() -> Configs.xp < Skills.experience(Constants.SKILLS_THIEVING)
-                        || Chat.canContinue(), Random.nextInt(500, 600), 5);
-                if (!Players.local().healthBarVisible()) {
-                    bandit.interact("Pickpocket");
-                    System.out.println("Pickpocketing...");
-                    Condition.wait(() -> xp < Skills.experience(Constants.SKILLS_THIEVING)
-                            || Chat.canContinue() || Players.local().animation() == -1
-                            && !Players.local().inMotion(), Random.nextInt(750, 1000), 5);
+                if (bandit.animation() == 838 && bandit.interact("Pickpocket")) { //Bandit is knocked out and we've pickpocketted less than twice
+                    Condition.wait(() -> Players.local().animation() == 827 ||  Players.local().animation() == -1
+                            && !Players.local().inMotion()
+                            || Chat.canContinue(), Random.nextInt(500, 600), 5);
+                    if (!Players.local().healthBarVisible()) {
+                        bandit.interact("Pickpocket");
+                        System.out.println("Pickpocketing...");
+                        Condition.wait(() -> Players.local().animation() == 827 ||  Players.local().animation() == -1
+                                && !Players.local().inMotion()
+                                || Chat.canContinue(), Random.nextInt(750, 1000), 5);
+                    }
                 }
-            }
         return 0;
     }
-}
+    }

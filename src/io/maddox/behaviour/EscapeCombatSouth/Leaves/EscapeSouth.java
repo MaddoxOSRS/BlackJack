@@ -5,7 +5,7 @@ import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
 import org.powbot.api.rt4.*;
 
-import static io.maddox.data.Areas.menaStairs;
+import static io.maddox.data.Areas.*;
 import static io.maddox.data.Configs.*;
 
 public class EscapeSouth extends Leaf {
@@ -14,8 +14,8 @@ public class EscapeSouth extends Leaf {
     @Override
     public boolean isValid() {
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
-        return !Npcs.stream().interactingWithMe().isEmpty() && bandit.animation() == 395 && Players.local().animation() == 1156
-                || !Npcs.stream().interactingWithMe().isEmpty() && bandit.animation() == 390 && bandit.animation() == 395 && Players.local().animation() == 1156;
+        return Configs.cantKnock && Configs.zone == NorthZone
+                || Configs.cantKnock && Configs.zone == NorthZone;
     }
 
 

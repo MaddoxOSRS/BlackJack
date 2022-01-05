@@ -6,14 +6,16 @@ import org.powbot.api.Condition;
 import org.powbot.api.rt4.*;
 
 import static io.maddox.data.Areas.*;
+import static io.maddox.data.Configs.cantKnock;
 
 public class ClimbUp extends Leaf {
     Npc bandit;
     @Override
     public boolean isValid() {
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
-        return !Npcs.stream().interactingWithMe().isEmpty() && bandit.animation() == 395 && Configs.cantKnock && Configs.zone == NorthZone
-                || !Npcs.stream().interactingWithMe().isEmpty() && bandit.animation() == 390 && Configs.cantKnock && Configs.zone == NorthZone;}
+        return Configs.cantKnock && Configs.zone == NorthZone
+                || Configs.cantKnock && Configs.zone == NorthZone;
+    }
 
 
 
@@ -26,6 +28,7 @@ public class ClimbUp extends Leaf {
                     System.out.println("firing inside");
                     ladderdownstairs.interact("Climb-up");
                     Condition.wait(() -> Configs.upstairs.contains(Players.local()), 1000, 5);
+                    cantKnock = false;
 
             }
         }

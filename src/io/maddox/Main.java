@@ -99,6 +99,7 @@ public class Main extends AbstractScript {
             Configs.house=DYEHOUSE;
             Configs.movement= outsidebanHouse;
             Configs.zone=NorthZone;
+            Configs.zoneupstairs=NorthZoneupstairs;
             Configs.missingThug=DYEHOUSE2;
             Configs.curtain=Curtain;
             Configs.lure=dyetoLure;
@@ -111,6 +112,7 @@ public class Main extends AbstractScript {
            Configs.house=DYEHOUSE;
             Configs.movement= outsidebanHouse;
             Configs.zone=NorthZone;
+            Configs.zoneupstairs=NorthZoneupstairs;
             Configs.missingThug=DYEHOUSE2;
             Configs.curtain=Curtain;
             Configs.lure=dyetoLure;
@@ -123,6 +125,7 @@ public class Main extends AbstractScript {
             Configs.house =menaphiteHouse;
             Configs.movement=outsideMenaHouse;
             Configs.zone=SouthZone;
+            Configs.zoneupstairs=SouthZoneupstairs;
             Configs.missingThug= menaphiteArea;
             Configs.curtain=menaCurtain;
             Configs.lure=menatoLure;
@@ -148,16 +151,14 @@ public class Main extends AbstractScript {
     private void instantiateTree() {
         tree.addBranches(
                 new TimeoutLeaf(),
-                new ActivateWorldHop().addLeafs(new HopWorld()), /* in testing */
+            //    new ActivateWorldHop().addLeafs(new HopWorld()), /* in testing */
                 new FirsRunBranch().addLeafs(new StartLeaf()),
                 new ActivateCurtain().addLeafs(new OperateCurtain(), new CloseCurtain()),
                 new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),
                 new ActivateEscapeSouth().addLeafs(new EscapeSouth(), new ClimbDownSouth()),
-               // new InteractwithJugandPouch().addLeafs(/*(new DropJug(),*/ new OpenMoneyPouch()),
                 new ActivatetoRestock().addLeafs(new Restock()),
                 new ActivateLure().addLeafs( new OpenCurtain(), new Lure(), new MoveintoHouse(), new OpentoEnterHouse()),
                 new ActivateKnockout().addLeafs(new Eat(), new KnockandPick()),
-                new ActivateMovetoBandit().addLeafs(new MovetoBandit()),
                 new FallbackLeaf());
     }
 
@@ -178,6 +179,14 @@ public class Main extends AbstractScript {
         } else if (text.contains("You smack")) {
                 cantKnock = false;
         }
+    }
+
+    @Subscribe
+    public void expGained(SkillExpGainedEvent evt) {
+        if (evt.getSkill().equals(Skill.Thieving)) {
+            xp  = evt.getExpGained();
+        }
+
     }
 
 

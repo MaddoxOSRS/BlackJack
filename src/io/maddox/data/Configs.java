@@ -29,6 +29,7 @@ public class Configs {
     public static Tile escapeup;
     public static Tile escapedown;
     public static Area zone;
+    public static Area zoneupstairs;
     public static Area upstairs;
     public static Tile downstairs;
     public static Area downstairsMena;

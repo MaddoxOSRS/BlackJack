@@ -22,15 +22,18 @@ Item emptyJug;
         Item wine = Inventory.stream().id(Configs.WINE_ID).first();
         if (wine.valid()) {
             wine.interact("Drink");
-            Condition.wait(() -> Players.local().healthPercent() > toEat, 150, 50);
+            Condition.wait(() -> Players.local().healthPercent() > toEat || Players.local().animation() == -1
+                    && !Players.local().inMotion(), 150, 50);
             }
         emptyJug = Inventory.stream().name(jug).first();
         if(emptyJug.interact("Drop")) {
-            Condition.wait(() -> Inventory.stream().name(Configs.jug).isEmpty(), 150, 50);
+            Condition.wait(() -> Inventory.stream().name(Configs.jug).isEmpty() || Players.local().animation() == -1
+                    && !Players.local().inMotion(), 150, 50);
         }
         Item pouch = Inventory.stream().name(Configs.moneyPouch).first();
         if(pouch.interact("Open-all")) {
-            Condition.wait(() -> Inventory.stream().name(Configs.moneyPouch).isEmpty(), 150, 50);
+            Condition.wait(() -> Inventory.stream().name(Configs.moneyPouch).isEmpty() || Players.local().animation() == -1
+                    && !Players.local().inMotion(), 150, 50);
         }
         return 0;
     }

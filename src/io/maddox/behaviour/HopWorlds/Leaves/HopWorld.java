@@ -19,8 +19,7 @@ public class HopWorld extends Leaf {
 
     @Override
     public int onLoop() {
-            knockCount = 0;
-            pickCount = 0;
+            Configs.cantKnock = false;
             WorldHopping.Hop();
         return 0;
     }

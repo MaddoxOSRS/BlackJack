@@ -9,6 +9,7 @@ import org.powbot.api.rt4.Objects;
 import org.powbot.api.rt4.Players;
 
 import static io.maddox.data.Areas.SouthZone;
+import static io.maddox.data.Areas.SouthZoneupstairs;
 import static io.maddox.data.Configs.staircaseupstairs;
 
 
@@ -16,7 +17,7 @@ public class ClimbDownSouth extends Leaf {
 
     @Override
     public boolean isValid() {
-        return Npcs.stream().interactingWithMe().isEmpty() && Configs.upstairs.contains(Players.local());
+        return !Configs.inCombat() && Configs.upstairs.contains(Players.local()) && Configs.zoneupstairs == SouthZoneupstairs;
     }
     @Override
     public int onLoop() {

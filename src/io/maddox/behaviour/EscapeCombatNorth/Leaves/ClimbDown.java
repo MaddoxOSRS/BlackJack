@@ -5,6 +5,7 @@ import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
 import org.powbot.api.rt4.*;
 
+import static io.maddox.data.Areas.NorthZoneupstairs;
 import static io.maddox.data.Configs.*;
 
 
@@ -12,7 +13,7 @@ public class ClimbDown extends Leaf {
 
     @Override
     public boolean isValid() {
-        return !Configs.inCombat() && Configs.upstairs.contains(Players.local());
+        return !Configs.timetoJet() && Configs.upstairs.contains(Players.local()) && Configs.zoneupstairs == NorthZoneupstairs;
     }
 
     @Override
@@ -21,8 +22,7 @@ public class ClimbDown extends Leaf {
         if (ladderupstairs.valid()) {
             ladderupstairs.interact("Climb-down");
             System.out.println("Good luck");
-            Condition.wait(() -> Configs.house.contains(Players.local()), 1000, 25);
-            cantKnock = false;
+            Condition.wait(() -> Configs.house.contains(Players.local()), 1000, 3);
         }
         return 0;
     }

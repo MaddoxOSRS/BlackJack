@@ -9,6 +9,7 @@ import org.powbot.api.rt4.Npcs;
 import org.powbot.api.rt4.Players;
 
 import static io.maddox.data.Areas.NorthZone;
+import static io.maddox.data.Areas.NorthZoneupstairs;
 
 
 public class ActivateEscape extends Branch {
@@ -17,8 +18,8 @@ public class ActivateEscape extends Branch {
     @Override
     public boolean isValid() {
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
-        return !Npcs.stream().interactingWithMe().isEmpty() && bandit.animation() == 395 && Configs.cantKnock && Configs.zone == NorthZone
-                || !Npcs.stream().interactingWithMe().isEmpty() && bandit.animation() == 390 && Configs.cantKnock && Configs.zone == NorthZone ||
-                !Configs.inCombat() && Configs.upstairs.contains(Players.local()) && Configs.zone == NorthZone;
+        return Configs.cantKnock && Configs.zone == NorthZone
+                || Configs.cantKnock && Configs.zone == NorthZone ||
+                !Configs.timetoJet() && Configs.upstairs.contains(Players.local()) && Configs.zoneupstairs == NorthZoneupstairs;
     }
 }

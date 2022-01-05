@@ -20,22 +20,23 @@ public class PickPocket extends Leaf {
     public boolean isValid() {
         return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
                 && !Inventory.stream().id(Configs.WINE_ID).isEmpty() && Configs.house.contains(Players.local())
-                && Players.local().healthPercent() > Configs.toEat && knockCount >= 1 && pickCount <= 2;
+                && Players.local().healthPercent() > Configs.toEat  && knockCount >= 1 && pickCount <= 2;
     }
 
     @Override
     public int onLoop() {
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().firstOrNull();
-        if (bandit.animation() == 838 && bandit.interact("Pickpocket")) { //Bandit is knocked out and we've pickpocketted less than twice
+        if (bandit.interact("Pickpocket")) { //Bandit is knocked out and we've pickpocketted less than twice
             Condition.wait(() -> Configs.xp < Skills.experience(Constants.SKILLS_THIEVING)
-                    || Chat.canContinue(), Random.nextInt(600, 750), 5);
+                    || Chat.canContinue(), Random.nextInt(575, 600), 5);
             pickCount++;
             if (!Players.local().healthBarVisible()) {
                 bandit.interact("Pickpocket");
                 pickCount++;
                 System.out.println("Pickpocketing...");
-                Condition.wait(() -> Configs.xp < Skills.experience(Constants.SKILLS_THIEVING)
-                        || Chat.canContinue(), Random.nextInt(600, 750), 5);
+                Condition.wait(() -> xp < Skills.experience(Constants.SKILLS_THIEVING)
+                        || Chat.canContinue() || Players.local().animation() == -1
+                        && !Players.local().inMotion(), Random.nextInt(1000, 1500), 5);
             }
             if (pickCount >= 2) {
                 knockCount = 0;
