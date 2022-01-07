@@ -17,7 +17,7 @@ public class ClimbDownSouth extends Leaf {
 
     @Override
     public boolean isValid() {
-        return !Configs.inCombat() && Configs.upstairs.contains(Players.local()) && Configs.zoneupstairs == SouthZoneupstairs;
+        return !Configs.timetoJet() && Configs.upstairs.contains(Players.local()) && Configs.zoneupstairs == SouthZoneupstairs;
     }
     @Override
     public int onLoop() {

@@ -52,6 +52,7 @@ public class Restock extends Leaf {
                         Widgets.widget(219).component(1).component(3).click();
                         Condition.wait(() -> !Inventory.stream().id(Configs.WINE_ID).isEmpty(), 250, 150);
                         cantKnock = false;
+                        knockCount = 0;
                     }
                 }
             }

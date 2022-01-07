@@ -14,8 +14,8 @@ public class EscapeSouth extends Leaf {
     @Override
     public boolean isValid() {
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
-        return Configs.cantKnock && Configs.zone == NorthZone
-                || Configs.cantKnock && Configs.zone == NorthZone;
+        return Configs.cantKnock && Configs.zone == SouthZone
+                || Configs.cantKnock && Configs.zone == SouthZone;
     }
 
 
@@ -36,6 +36,8 @@ public class EscapeSouth extends Leaf {
                             System.out.println("firing inside");
                             stairsdownstairs.interact("Climb-up");
                             Condition.wait(() -> Configs.upstairs.contains(Players.local()), 250, 10);
+                        knockCount = 0;
+                        cantKnock = false;
         }
         return 0;
     }

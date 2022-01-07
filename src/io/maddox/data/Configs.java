@@ -1,15 +1,11 @@
 package io.maddox.data;
 
 
-import io.maddox.Main;
 import org.powbot.api.Area;
 import org.powbot.api.Condition;
 import org.powbot.api.Tile;
-import org.powbot.api.event.MessageEvent;
 import org.powbot.api.rt4.*;
-import org.powbot.api.rt4.walking.model.Skill;
 
-import static io.maddox.Main.*;
 import static java.lang.System.currentTimeMillis;
 
 public class Configs {
@@ -74,37 +70,35 @@ public class Configs {
     public static int toEat = 0;
     public static int xp = Skills.experience(Constants.SKILLS_THIEVING);
 
-    public static boolean ohShit() {
-        Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "I'll kill you for that").isEmpty();
-       // System.out.println("Yeeted for the ohshit");
-        return false;
-    }
+    public static boolean ohshit() {
+    return Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage().contains("I'll kill you for that")).isNotEmpty();
+     }
 
     public static boolean inCombat() {
-        Npcs.stream().interactingWithMe().isEmpty();
-      //  System.out.println("Yeeted for the inCombat");
-        return false;
+        return Npcs.stream().interactingWithMe().isNotEmpty() && Players.local().healthBarVisible();
+    }
+
+    public static boolean amfollowing() {
+        return Npcs.stream().interactingWithMe().isNotEmpty();
     }
 
     public static boolean timetoJet() {
-        Players.local().healthBarVisible();
-        return false;
+        return Players.local().healthBarVisible();
     }
 
     public static boolean snooze() {
-        Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "Zzzzzz").isEmpty();
-        return false;
+        return Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "Zzzzzz").isNotEmpty();
+
     }
 
     public static boolean wotudo() {
-        Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "What do you think ").isEmpty();
-        return false;
+        return Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "What do you think ").isNotEmpty();
+
     }
 
     public static boolean nearPlayer() {
-        Players.stream().within(Configs.house);
-       // System.out.println("Yeeted for the near player");
-        return false;
+        return Players.stream().filter(x->!x.equals(Players.local())).within(Configs.house).isNotEmpty();
+
     }
 
     //world switcher

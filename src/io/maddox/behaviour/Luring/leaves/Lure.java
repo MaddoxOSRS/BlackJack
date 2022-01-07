@@ -29,7 +29,7 @@ public class Lure extends Leaf {
             Camera.turnTo(bandittoLure);
         }
         Movement.running(false);
-            if (!Configs.inCombat() && bandittoLure.interact("Lure")) {
+            if (!Configs.amfollowing() && bandittoLure.interact("Lure")) {
                 Condition.wait(() -> Widgets.widget(217).component(5).visible() || Chat.chatting(), 300, 50);
                 if (Widgets.widget(217).component(5).visible() || Chat.chatting()) {
                     if (Chat.canContinue() && Chat.clickContinue()) {
@@ -52,7 +52,7 @@ public class Lure extends Leaf {
                                             Condition.wait(() -> Players.local().animation() == -1
                                                     && !Players.local().inMotion(), Random.nextInt(500, 750), 50);
                                             Movement.step(Configs.lure);
-                                            Condition.wait(() -> Configs.missingThug.contains(Players.local()), 50, 75);
+                                            Condition.wait(() -> Configs.house.contains(Players.local()), 50, 75);
                                         }
                                     }
                             }
