@@ -138,7 +138,6 @@ public class Main extends AbstractScript {
                 .addString("Leaf:" , () -> Configs.currentLeaf )
                 .trackSkill(Skill.Thieving)
                 .trackInventoryItem(995)
-                .backgroundColor(Color.argb(186, 16, 186, 0))
                 .x(30)
                 .y(50)
                 .build();
