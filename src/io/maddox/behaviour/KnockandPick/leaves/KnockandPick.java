@@ -21,7 +21,7 @@ public class KnockandPick extends Leaf {
     @Override
     public boolean isValid() {
         return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
-                && !Inventory.stream().id(Configs.WINE_ID).isEmpty() && Configs.house.contains(Players.local()) && Players.local().healthPercent() > Configs.toEat;
+                && !Inventory.stream().id(Configs.WINE_ID).isEmpty() && Configs.house.contains(Players.local());
     }
 
     @Override
@@ -37,7 +37,13 @@ public class KnockandPick extends Leaf {
         if (Configs.ohshit()) {
             System.out.println("Yeeted for the ohshit");
             knockCount = 0;
-            return 0;
+            if (bandit != null && bandit.interact("Knock-Out")) {
+                out.println("Knocking out...");
+                pickCount = 0;
+                Condition.wait(() ->
+                        Players.local().animation() == 401, 200, 5);
+                knockCount++;
+            }
         }
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().firstOrNull();
             if (knockCount >= 1 && pickCount <= 2) {
