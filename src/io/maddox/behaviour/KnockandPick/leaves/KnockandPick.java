@@ -31,7 +31,7 @@ public class KnockandPick extends Leaf {
                 out.println("Knocking out...");
              pickCount = 0;
                 Condition.wait(() ->
-                        Players.local().animation() == 401, 350, 5);
+                        Players.local().animation() == 401, 200, 5);
              knockCount++;
             }
         if (Configs.ohshit()) {
