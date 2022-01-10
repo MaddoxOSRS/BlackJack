@@ -17,7 +17,7 @@ public class KnockandPick extends Leaf {
     @Override
     public boolean isValid() {
         return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
-                && !Inventory.stream().id(Configs.food).isEmpty() && Configs.house.contains(Players.local());
+                && !Inventory.stream().name(Configs.food).isEmpty() && Configs.house.contains(Players.local());
     }
 
     @Override
@@ -27,7 +27,7 @@ public class KnockandPick extends Leaf {
                 out.println("Knocking out...");
              pickCount = 0;
                 Condition.wait(() ->
-                        Players.local().animation() == 401, 200, 5);
+                        Players.local().animation() == 401, 75, 50);
              knockCount++;
             }
         if (Configs.ohshit()) {
@@ -38,7 +38,7 @@ public class KnockandPick extends Leaf {
                 pickCount = 0;
                 knockCount++;
                 Condition.wait(() ->
-                        Players.local().animation() == 401, 200, 5);
+                        Players.local().animation() == 401, 50, 50);
             }
         }
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().firstOrNull();
@@ -46,7 +46,7 @@ public class KnockandPick extends Leaf {
                 if (bandit.interact("Pickpocket")) { //Bandit is knocked out, and we've pickpocketed less than twice
                     pickCount++;
                     Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().animation() == -1
-                            && !Players.local().inMotion(), 450, 50);
+                            && !Players.local().inMotion(), 300, 50);
                     bandit.interact("Pickpocket");
                     pickCount++;
                     knockCount = 0;

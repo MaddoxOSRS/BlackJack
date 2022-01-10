@@ -6,9 +6,6 @@ import org.powbot.api.Condition;
 import org.powbot.api.Tile;
 import org.powbot.api.rt4.*;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static java.lang.System.currentTimeMillis;
 
 public class Configs {
@@ -21,7 +18,8 @@ public class Configs {
     public static boolean started = false;
     public static boolean startRun = false;
     public static int thug;
-    public static int food;
+    public static String food;
+
     public static int notedfood;
     public static Area house;
     public static Tile movement;
@@ -110,9 +108,18 @@ public class Configs {
 
     }
 
+
     public static boolean nearPlayer() {
         return Players.stream().filter(x->!x.equals(Players.local())).within(Configs.house).isNotEmpty();
 
+    }
+
+    public static String getFood() {
+        return food;
+    }
+
+    public static void setFood(String food) {
+        Configs.food = food;
     }
 
     //world switcher

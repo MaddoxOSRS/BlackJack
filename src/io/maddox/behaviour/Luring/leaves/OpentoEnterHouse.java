@@ -8,14 +8,19 @@ import org.powbot.api.rt4.*;
 
 
 public class OpentoEnterHouse extends Leaf {
-
+    Npc bandit;
     GameObject closedcurtain;
     @Override
     public boolean isValid() {
+        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
+        closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
 
-        return Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first().valid()
-                && !Configs.house.contains(Players.local()) &&
-                Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first().valid();
+        return !Configs.house.contains(bandit) &&
+                Configs.zone.contains(Players.local()) &&
+                closedcurtain.valid() ||
+                !Configs.house.contains(bandit) &&
+                        Configs.house.contains(Players.local())
+                        && closedcurtain.valid();
     }
 
     @Override
@@ -25,7 +30,7 @@ public class OpentoEnterHouse extends Leaf {
         if (Npcs.stream().interactingWithMe().isEmpty() && closedcurtain.inViewport()) {
             System.out.println("Closing curtain...");
             closedcurtain.interact("Open");
-            Condition.wait(() -> Players.local().animation() == -1
+            Condition.wait(() -> !closedcurtain.valid() && Players.local().animation() == -1
                     && !Players.local().inMotion(), Random.nextInt(500, 750), 50);
         }
         return 0;

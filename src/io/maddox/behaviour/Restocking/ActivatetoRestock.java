@@ -13,6 +13,6 @@ public class ActivatetoRestock extends Branch {
 
     @Override
     public boolean isValid() {
-        return Inventory.stream().id(Configs.food).isEmpty() && !Configs.inCombat() || Inventory.stream().name(jug).isNotEmpty() && Areas.inMarket.contains(Players.local());
+        return Inventory.stream().name(Configs.food).isEmpty() && !Configs.inCombat() || Inventory.stream().name(jug).isNotEmpty() && Areas.inMarket.contains(Players.local());
     }
 }

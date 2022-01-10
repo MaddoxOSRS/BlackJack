@@ -15,7 +15,7 @@ public class Restock extends Leaf {
     GameObject closedcurtain;
     @Override
     public boolean isValid() {
-        return Inventory.stream().id(Configs.food).isEmpty() && !inCombat()  && !Areas.inMarket.contains(Players.local());
+        return Inventory.stream().name(Configs.food).isEmpty() && !inCombat()  && !Areas.inMarket.contains(Players.local());
     }
 
     @Override

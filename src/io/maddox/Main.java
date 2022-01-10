@@ -13,9 +13,7 @@ import io.maddox.behaviour.KnockandPick.leaves.KnockandPick;
 import io.maddox.behaviour.Luring.ActivateLure;
 import io.maddox.behaviour.Luring.leaves.Lure;
 import io.maddox.behaviour.Luring.leaves.MoveintoHouse;
-import io.maddox.behaviour.Luring.leaves.OpenCurtain;
 import io.maddox.behaviour.Luring.leaves.OpentoEnterHouse;
-import io.maddox.behaviour.RelocatetoNorth.ActivateMovetoBandit;
 import io.maddox.behaviour.KnockandPick.leaves.MovetoBandit;
 import io.maddox.behaviour.Restocking.ActivatetoRestock;
 import io.maddox.behaviour.Restocking.Leaves.Restock;
@@ -78,9 +76,9 @@ import static io.maddox.data.Configs.*;
                 @ScriptConfiguration(
                         name = "Select Food to use",
                         description = "What Food would you like to use?",
-                        defaultValue = "1993",
-                        allowedValues = {"1993", "385"},
-                        optionType = OptionType.INTEGER
+                        defaultValue = "Jug of Wine",
+                        allowedValues = {"Shark", "Jug of Wine"},
+                        optionType = OptionType.STRING
                 )
         }
 )
@@ -97,18 +95,10 @@ public class Main extends AbstractScript {
     public void onStart() {
         int nomming = getOption("Percentage to Eat");
         int bandit = getOption("Select Bandit");
-        int foodtouse = getOption("Select Food to use");
+        String foodtouse = getOption("Select Food to use");
         Configs.toEat = nomming;
         Configs.thug = bandit;
         food = foodtouse;
-        if(foodtouse == 385) {
-            Configs.food = SHARK;
-            notedfood = NOTED_SHARK_ID;
-        }
-        else if (foodtouse == 1993){
-            Configs.food = WINE_ID;
-            notedfood = NOTED_WINE_ID;
-        }
 
         if(bandit == 737){
             Configs.house=DYEHOUSE;
@@ -171,7 +161,7 @@ public class Main extends AbstractScript {
                 new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),
                 new ActivateEscapeSouth().addLeafs(new EscapeSouth(), new ClimbDownSouth()),
                 new ActivatetoRestock().addLeafs(new Restock(), new UnnotedWines(), new SellEmptyjugs()),
-                new ActivateLure().addLeafs( new OpenCurtain(), new Lure(), new MoveintoHouse(), new OpentoEnterHouse()),
+                new ActivateLure().addLeafs(new Lure(), new MoveintoHouse(), new OpentoEnterHouse()),
                 new ActivateKnockout().addLeafs(new Eat(), new KnockandPick(), new MovetoBandit()),
              //   new ActivateMovetoBandit().addLeafs(new MovetoBandit()),
                 new FallbackLeaf());

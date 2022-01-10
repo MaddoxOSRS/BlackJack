@@ -12,12 +12,14 @@ public class Lure extends Leaf {
 
 
     Npc bandittoLure;
-
+    GameObject closedcurtain;
     @Override
     public boolean isValid() {
+        closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
+
         return !Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
-                && Configs.zone.contains(Players.local())
-                && Inventory.stream().id(Configs.food).isNotEmpty();
+                && Configs.zone.contains(Players.local()) && !closedcurtain.valid()
+                && Inventory.stream().name(Configs.food).isNotEmpty();
     }
 
     int banditLureWidget = 231;

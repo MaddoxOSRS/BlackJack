@@ -14,7 +14,7 @@ public class UnnotedWines extends Leaf {
     Item notedfood;
     @Override
     public boolean isValid() {
-        return Inventory.stream().id(Configs.food).isEmpty() && inMarket.contains(Players.local()) && Inventory.stream().name(jug).isEmpty();
+        return Inventory.stream().name(Configs.food).isEmpty() && inMarket.contains(Players.local()) && Inventory.stream().name(jug).isEmpty();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class UnnotedWines extends Leaf {
                 }
                 if (Widgets.widget(bankNoteManagerWidget).component(banknotemanagerselectioncomponent).component(bankNotemanagerALLComponent).visible()) {
                     Widgets.widget(bankNoteManagerWidget).component(banknotemanagerselectioncomponent).component(bankNotemanagerALLComponent).click();
-                    Condition.wait(() -> !Inventory.stream().id(Configs.food).isEmpty(), 250, 150);
+                    Condition.wait(() -> !Inventory.stream().name(Configs.food).isEmpty(), 250, 150);
                     cantKnock = false;
                     knockCount = 0;
                 }
