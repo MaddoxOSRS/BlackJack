@@ -8,6 +8,9 @@ public class Areas {
     public static final Area DYEHOUSE = new Area
             (new Tile(3363, 3000, 0),
             new Tile(3365, 3003, 0));
+    public static final Area inMarket = new Area
+            (new Tile(3356, 2990, 0),
+                    new Tile(3361, 2986, 0));
     public static final Area menaphiteHouse = new Area
             (new Tile(3344, 2956, 0),
                     new Tile(3340, 2953, 0));

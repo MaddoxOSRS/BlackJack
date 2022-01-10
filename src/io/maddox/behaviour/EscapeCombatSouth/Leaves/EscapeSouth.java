@@ -5,8 +5,10 @@ import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
 import org.powbot.api.rt4.*;
 
-import static io.maddox.data.Areas.*;
-import static io.maddox.data.Configs.*;
+import static io.maddox.data.Areas.SouthZone;
+import static io.maddox.data.Areas.menaStairs;
+import static io.maddox.data.Configs.cantKnock;
+import static io.maddox.data.Configs.knockCount;
 
 public class EscapeSouth extends Leaf {
     Npc bandit;

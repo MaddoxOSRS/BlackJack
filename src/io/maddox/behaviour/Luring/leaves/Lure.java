@@ -6,8 +6,6 @@ import org.powbot.api.Condition;
 import org.powbot.api.Random;
 import org.powbot.api.rt4.*;
 
-import static io.maddox.data.Configs.knockCount;
-import static io.maddox.data.Configs.pickCount;
 
 
 public class Lure extends Leaf {
@@ -22,6 +20,16 @@ public class Lure extends Leaf {
                 && Inventory.stream().id(Configs.WINE_ID).isNotEmpty();
     }
 
+    int banditLureWidget = 231;
+    int banditLureComponent = 5;
+    int playerlureWidget = 217;
+    int playerlureComponent = 5;
+
+    String banditbusy = "I'm busy";
+    String optionLure = "Lure";
+    String banditWhatisit = "What is it";
+    String playerFollowme = "Follow me";
+
     @Override
     public int onLoop() {
         bandittoLure = Npcs.stream().within(Configs.missingThug).id(Configs.thug).nearest().first();
@@ -29,24 +37,26 @@ public class Lure extends Leaf {
             Camera.turnTo(bandittoLure);
         }
         Movement.running(false);
-            if (!Configs.amfollowing() && bandittoLure.interact("Lure")) {
-                Condition.wait(() -> Widgets.widget(217).component(5).visible() || Chat.chatting(), 300, 50);
-                if (Widgets.widget(217).component(5).visible() || Chat.chatting()) {
+            if (!Configs.amfollowing() && bandittoLure.interact(optionLure)) {
+                Condition.wait(() -> Widgets.widget(playerlureWidget).component(playerlureComponent).visible()
+                        || Chat.chatting(), 300, 50);
+                if (Widgets.widget(playerlureWidget).component(playerlureComponent).visible()
+                        || Chat.chatting()) {
                     if (Chat.canContinue() && Chat.clickContinue()) {
-                        Condition.wait(() -> Widgets.widget(231).component(5).visible(), 250, 100);
-                        if (Condition.wait(() -> Widgets.widget(231).component(5).visible(), 250, 100)) {
-                            if (Widgets.widget(231).component(5).text().contains("I'm busy")) {
+                        Condition.wait(() -> Widgets.widget(banditLureWidget).component(banditLureComponent).visible(), 250, 100);
+                        if (Condition.wait(() -> Widgets.widget(banditLureWidget).component(banditLureComponent).visible(), 250, 100)) {
+                            if (Widgets.widget(banditLureWidget).component(banditLureComponent).text().contains(banditbusy)) {
                                 Chat.clickContinue();
                                 Movement.step(Configs.movement);
                                 return 0;
                             } else {
-                                if (Widgets.widget(231).component(5).text().contains("What is it")) {
+                                if (Widgets.widget(banditLureWidget).component(banditLureComponent).text().contains(banditWhatisit)) {
                                     if (Chat.canContinue() && Chat.clickContinue()) {
-                                        Condition.wait(() -> Widgets.widget(217).component(5).text().contains("Follow me"), 250, 100);
+                                        Condition.wait(() -> Widgets.widget(playerlureWidget).component(5).text().contains(playerFollowme), 250, 100);
                                     }
-                                    if (Widgets.widget(217).component(5).text().contains("Follow me") && Chat.canContinue() && Chat.clickContinue()) {
-                                        Condition.wait(() -> !Widgets.widget(217).component(5).visible(), 250, 150);
-                                        if (!Widgets.widget(217).component(5).visible()) {
+                                    if (Widgets.widget(playerlureWidget).component(playerlureComponent).text().contains(playerFollowme) && Chat.canContinue() && Chat.clickContinue()) {
+                                        Condition.wait(() -> !Widgets.widget(playerlureWidget).component(playerlureComponent).visible(), 250, 150);
+                                        if (!Widgets.widget(playerlureWidget).component(playerlureComponent).visible()) {
                                             Movement.running(false);
                                             Movement.step(Configs.movement);
                                             Condition.wait(() -> Players.local().animation() == -1

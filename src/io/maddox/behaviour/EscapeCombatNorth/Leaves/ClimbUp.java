@@ -5,7 +5,8 @@ import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
 import org.powbot.api.rt4.*;
 
-import static io.maddox.data.Areas.*;
+import static io.maddox.data.Areas.NorthZone;
+import static io.maddox.data.Areas.dyeLadderdownstairs;
 import static io.maddox.data.Configs.cantKnock;
 
 public class ClimbUp extends Leaf {

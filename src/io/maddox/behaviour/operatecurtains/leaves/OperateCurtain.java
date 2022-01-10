@@ -3,7 +3,6 @@ package io.maddox.behaviour.operatecurtains.leaves;
 import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
-import org.powbot.api.Random;
 import org.powbot.api.rt4.*;
 
 

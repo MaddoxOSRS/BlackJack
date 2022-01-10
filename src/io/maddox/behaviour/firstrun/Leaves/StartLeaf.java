@@ -2,10 +2,6 @@ package io.maddox.behaviour.firstrun.Leaves;
 
 import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
-import org.powbot.api.rt4.walking.model.Skill;
-
-import static io.maddox.data.Configs.*;
-import static io.maddox.data.Configs.pickCount;
 
 
 public class StartLeaf extends Leaf {

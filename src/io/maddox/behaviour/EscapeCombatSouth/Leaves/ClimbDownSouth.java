@@ -4,11 +4,9 @@ import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
 import org.powbot.api.rt4.GameObject;
-import org.powbot.api.rt4.Npcs;
 import org.powbot.api.rt4.Objects;
 import org.powbot.api.rt4.Players;
 
-import static io.maddox.data.Areas.SouthZone;
 import static io.maddox.data.Areas.SouthZoneupstairs;
 import static io.maddox.data.Configs.staircaseupstairs;
 

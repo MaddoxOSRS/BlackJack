@@ -7,7 +7,8 @@ import org.powbot.api.rt4.Inventory;
 import org.powbot.api.rt4.Item;
 import org.powbot.api.rt4.Players;
 
-import static io.maddox.data.Configs.*;
+import static io.maddox.data.Configs.knockCount;
+import static io.maddox.data.Configs.toEat;
 
 
 public class Eat extends Leaf {
@@ -26,11 +27,6 @@ Item emptyJug;
                     && !Players.local().inMotion(), 150, 50);
             knockCount = 0;
             }
-        Item pouch = Inventory.stream().name(Configs.moneyPouch).first();
-        if(pouch.interact("Open-all")) {
-            Condition.wait(() -> Inventory.stream().name(Configs.moneyPouch).isEmpty() || Players.local().animation() == -1
-                    && !Players.local().inMotion(), 150, 50);
-        }
         return 0;
     }
 }

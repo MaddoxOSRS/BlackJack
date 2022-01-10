@@ -3,10 +3,11 @@ package io.maddox.behaviour.EscapeCombatNorth.Leaves;
 import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
-import org.powbot.api.rt4.*;
+import org.powbot.api.rt4.GameObject;
+import org.powbot.api.rt4.Objects;
+import org.powbot.api.rt4.Players;
 
 import static io.maddox.data.Areas.NorthZoneupstairs;
-import static io.maddox.data.Configs.*;
 
 
 public class ClimbDown extends Leaf {

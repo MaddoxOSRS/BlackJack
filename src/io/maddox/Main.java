@@ -7,11 +7,10 @@ import io.maddox.behaviour.EscapeCombatNorth.Leaves.ClimbUp;
 import io.maddox.behaviour.EscapeCombatSouth.ActivateEscapeSouth;
 import io.maddox.behaviour.EscapeCombatSouth.Leaves.ClimbDownSouth;
 import io.maddox.behaviour.EscapeCombatSouth.Leaves.EscapeSouth;
-import io.maddox.behaviour.HopWorlds.ActivateWorldHop;
-import io.maddox.behaviour.HopWorlds.Leaves.HopWorld;
 import io.maddox.behaviour.KnockandPick.ActivateKnockout;
 import io.maddox.behaviour.KnockandPick.leaves.Eat;
 import io.maddox.behaviour.KnockandPick.leaves.KnockandPick;
+import io.maddox.behaviour.KnockandPick.leaves.OpenPouch;
 import io.maddox.behaviour.Luring.ActivateLure;
 import io.maddox.behaviour.Luring.leaves.Lure;
 import io.maddox.behaviour.Luring.leaves.MoveintoHouse;
@@ -21,6 +20,8 @@ import io.maddox.behaviour.RelocatetoNorth.ActivateMovetoBandit;
 import io.maddox.behaviour.RelocatetoNorth.Leaves.MovetoBandit;
 import io.maddox.behaviour.Restocking.ActivatetoRestock;
 import io.maddox.behaviour.Restocking.Leaves.Restock;
+import io.maddox.behaviour.Restocking.Leaves.SellEmptyjugs;
+import io.maddox.behaviour.Restocking.Leaves.UnnotedWines;
 import io.maddox.behaviour.fallback.FallbackLeaf;
 import io.maddox.behaviour.firstrun.FirsRunBranch;
 import io.maddox.behaviour.firstrun.Leaves.StartLeaf;
@@ -31,7 +32,6 @@ import io.maddox.behaviour.timeout.TimeoutLeaf;
 import io.maddox.data.Areas;
 import io.maddox.data.Configs;
 import io.maddox.framework.Tree;
-import org.powbot.api.Color;
 import org.powbot.api.event.BreakEvent;
 import org.powbot.api.event.MessageEvent;
 import org.powbot.api.event.SkillExpGainedEvent;
@@ -153,9 +153,9 @@ public class Main extends AbstractScript {
                 new ActivateCurtain().addLeafs(new OperateCurtain(), new CloseCurtain()),
                 new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),
                 new ActivateEscapeSouth().addLeafs(new EscapeSouth(), new ClimbDownSouth()),
-                new ActivatetoRestock().addLeafs(new Restock()),
+                new ActivatetoRestock().addLeafs(new Restock(), new UnnotedWines(), new SellEmptyjugs()),
                 new ActivateLure().addLeafs( new OpenCurtain(), new Lure(), new MoveintoHouse(), new OpentoEnterHouse()),
-                new ActivateKnockout().addLeafs(new Eat(), new KnockandPick()),
+                new ActivateKnockout().addLeafs(new Eat(), new KnockandPick(), new OpenPouch()),
                 new ActivateMovetoBandit().addLeafs(new MovetoBandit()),
                 new FallbackLeaf());
     }

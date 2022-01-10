@@ -1,12 +1,12 @@
 package io.maddox.behaviour.KnockandPick.leaves;
 
-import com.google.common.eventbus.Subscribe;
 import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
-import org.powbot.api.Random;
-import org.powbot.api.event.MessageEvent;
-import org.powbot.api.rt4.*;
+import org.powbot.api.rt4.Inventory;
+import org.powbot.api.rt4.Npc;
+import org.powbot.api.rt4.Npcs;
+import org.powbot.api.rt4.Players;
 
 import static io.maddox.data.Configs.knockCount;
 import static io.maddox.data.Configs.pickCount;
@@ -46,10 +46,10 @@ public class KnockandPick extends Leaf {
             }
         }
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().firstOrNull();
-            if (knockCount >= 1 && pickCount <= 2) {
+            if (knockCount >= 1) {
                 if (bandit.interact("Pickpocket")) { //Bandit is knocked out, and we've pickpocketed less than twice
                     pickCount++;
-                    Condition.sleep((570));
+                    Condition.wait(() -> Players.local().animation() == 827, 450, 50);
                     bandit.interact("Pickpocket");
                     pickCount++;
                     knockCount = 0;

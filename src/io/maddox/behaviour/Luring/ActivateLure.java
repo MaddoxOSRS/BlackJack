@@ -2,7 +2,10 @@ package io.maddox.behaviour.Luring;
 
 import io.maddox.data.Configs;
 import io.maddox.framework.Branch;
-import org.powbot.api.rt4.*;
+import org.powbot.api.rt4.Inventory;
+import org.powbot.api.rt4.Npc;
+import org.powbot.api.rt4.Npcs;
+import org.powbot.api.rt4.Players;
 
 
 public class ActivateLure extends Branch {

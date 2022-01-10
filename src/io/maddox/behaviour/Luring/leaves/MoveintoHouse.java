@@ -2,7 +2,9 @@ package io.maddox.behaviour.Luring.leaves;
 
 import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
-import org.powbot.api.rt4.*;
+import org.powbot.api.rt4.Movement;
+import org.powbot.api.rt4.Npcs;
+import org.powbot.api.rt4.Players;
 
 
 public class MoveintoHouse extends Leaf {

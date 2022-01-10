@@ -6,8 +6,8 @@ import org.powbot.api.rt4.Npc;
 import org.powbot.api.rt4.Npcs;
 import org.powbot.api.rt4.Players;
 
-import static io.maddox.data.Areas.*;
-import static io.maddox.data.Areas.NorthZone;
+import static io.maddox.data.Areas.SouthZone;
+import static io.maddox.data.Areas.SouthZoneupstairs;
 
 
 public class ActivateEscapeSouth extends Branch {

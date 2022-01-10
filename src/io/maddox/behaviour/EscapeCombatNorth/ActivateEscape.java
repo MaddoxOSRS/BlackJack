@@ -1,9 +1,7 @@
 package io.maddox.behaviour.EscapeCombatNorth;
 
-import io.maddox.Main;
 import io.maddox.data.Configs;
 import io.maddox.framework.Branch;
-import org.powbot.api.event.MessageEvent;
 import org.powbot.api.rt4.Npc;
 import org.powbot.api.rt4.Npcs;
 import org.powbot.api.rt4.Players;
