@@ -6,33 +6,29 @@ import io.maddox.framework.Leaf;
 import org.powbot.api.Condition;
 import org.powbot.api.rt4.*;
 
-import static io.maddox.data.Configs.cantKnock;
-import static io.maddox.data.Configs.knockCount;
+import static io.maddox.data.Areas.inMarket;
+import static io.maddox.data.Configs.*;
 
 public class UnnotedWines extends Leaf {
     Npc banknotemanager;
-
+    Item notedfood;
     @Override
     public boolean isValid() {
-        return Inventory.stream().id(Configs.WINE_ID).isEmpty() && Areas.inMarket.contains(Players.local());
+        return Inventory.stream().id(Configs.food).isEmpty() && inMarket.contains(Players.local()) && Inventory.stream().name(jug).isEmpty();
     }
-
-    int bankNoteManagerWidget = 219;
-    int banknotemanagerselectioncomponent = 1;
-    int bankNotemanagerALLComponent = 3;
 
     @Override
     public int onLoop() {
-        Item notedWines = Inventory.stream().id(Configs.NOTED_WINE_ID).first();
-        banknotemanager = Npcs.stream().within(7).id(Configs.noteManager).nearest().first();
-        if (banknotemanager.inViewport()) {
+        notedfood = Inventory.stream().id(Configs.notedfood).first();
+        banknotemanager = Npcs.stream().within(inMarket).id(Configs.noteManager).nearest().first();
+        if (banknotemanager.valid()) {
             if (Game.tab(Game.Tab.INVENTORY)) {
-                if (notedWines.interact("Use") && banknotemanager.interact("Use")) {
+                if (notedfood.interact("Use") && banknotemanager.interact("Use")) {
                     Condition.wait(Chat::chatting, 250, 150);
                 }
                 if (Widgets.widget(bankNoteManagerWidget).component(banknotemanagerselectioncomponent).component(bankNotemanagerALLComponent).visible()) {
                     Widgets.widget(bankNoteManagerWidget).component(banknotemanagerselectioncomponent).component(bankNotemanagerALLComponent).click();
-                    Condition.wait(() -> !Inventory.stream().id(Configs.WINE_ID).isEmpty(), 250, 150);
+                    Condition.wait(() -> !Inventory.stream().id(Configs.food).isEmpty(), 250, 150);
                     cantKnock = false;
                     knockCount = 0;
                 }

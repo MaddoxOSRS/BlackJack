@@ -6,6 +6,9 @@ import org.powbot.api.Condition;
 import org.powbot.api.Tile;
 import org.powbot.api.rt4.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static java.lang.System.currentTimeMillis;
 
 public class Configs {
@@ -18,6 +21,8 @@ public class Configs {
     public static boolean started = false;
     public static boolean startRun = false;
     public static int thug;
+    public static int food;
+    public static int notedfood;
     public static Area house;
     public static Tile movement;
     public static Tile curtain;
@@ -55,7 +60,13 @@ public class Configs {
     }
 
     //int stuff
-
+   public static int bankNoteManagerWidget = 219;
+  public static  int banknotemanagerselectioncomponent = 1;
+  public static  int bankNotemanagerALLComponent = 3;
+   public static int generalstorewindowWidget = 300;
+  public static  int generalstoremainComponent = 1;
+   public static int generatlstoreEXITcomponent = 11;
+  public static  int generalstoreNameComponent = 16;
     public static String moneyPouch = "Coin Pouch";
     public static String jug = "Jug";
     public static int climbdownladder = 6260;
@@ -66,7 +77,10 @@ public class Configs {
     public static int staircasedownstairs = 6242;
     public static int staircaseupstairs = 6243;
     public static int WINE_ID = 1993;
+    public static int CAKE = 1891;
+    public static int SHARK = 385;
     public static int NOTED_WINE_ID = 1994;
+    public static int NOTED_SHARK_ID = 386;
     public static int toEat = 0;
     public static int xp = Skills.experience(Constants.SKILLS_THIEVING);
 

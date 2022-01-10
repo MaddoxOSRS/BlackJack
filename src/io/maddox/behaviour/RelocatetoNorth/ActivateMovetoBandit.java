@@ -11,6 +11,6 @@ public class ActivateMovetoBandit extends Branch {
 
     @Override
     public boolean isValid() {
-        return !Inventory.stream().id(Configs.WINE_ID).isEmpty() && !Configs.zone.contains(Players.local());
+        return Inventory.stream().id(Configs.food).isNotEmpty() && !Configs.house.contains(Players.local());
     }
 }

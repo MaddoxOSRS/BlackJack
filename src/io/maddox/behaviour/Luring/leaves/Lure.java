@@ -17,7 +17,7 @@ public class Lure extends Leaf {
     public boolean isValid() {
         return !Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
                 && Configs.zone.contains(Players.local())
-                && Inventory.stream().id(Configs.WINE_ID).isNotEmpty();
+                && Inventory.stream().id(Configs.food).isNotEmpty();
     }
 
     int banditLureWidget = 231;

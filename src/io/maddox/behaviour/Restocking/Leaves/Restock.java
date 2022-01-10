@@ -1,11 +1,10 @@
 package io.maddox.behaviour.Restocking.Leaves;
 
+import io.maddox.data.Areas;
 import io.maddox.data.Configs;
 import io.maddox.framework.Leaf;
-import org.powbot.api.rt4.Inventory;
-import org.powbot.api.rt4.Movement;
-import org.powbot.api.rt4.Npc;
-import org.powbot.api.rt4.Npcs;
+import org.powbot.api.Condition;
+import org.powbot.api.rt4.*;
 
 import static io.maddox.data.Areas.NoteManager;
 import static io.maddox.data.Configs.inCombat;
@@ -13,16 +12,19 @@ import static io.maddox.data.Configs.inCombat;
 public class Restock extends Leaf {
 
     Npc generalstore;
-
+    GameObject closedcurtain;
     @Override
     public boolean isValid() {
-        return Inventory.stream().id(Configs.WINE_ID).isEmpty() && !inCombat();
+        return Inventory.stream().id(Configs.food).isEmpty() && !inCombat()  && !Areas.inMarket.contains(Players.local());
     }
 
     @Override
     public int onLoop() {
-        generalstore = Npcs.stream().within(7).id(Configs.generalStore).nearest().first();
-        if (!generalstore.valid()) {
+        closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
+        if (closedcurtain.inViewport() && closedcurtain.interact("Open")) {
+            Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion() && !closedcurtain.valid(), 350, 75);
+        }
+        if (!Npcs.stream().within(7).id(Configs.generalStore).nearest().first().valid()) {
             Movement.running(true);
             Movement.step(NoteManager);
         }

@@ -12,17 +12,18 @@ import static io.maddox.data.Configs.toEat;
 
 
 public class Eat extends Leaf {
-Item emptyJug;
     @Override
     public boolean isValid() {
-        return Players.local().healthPercent() < Configs.toEat && !Inventory.stream().id(Configs.WINE_ID).isEmpty() && !Players.local().healthBarVisible();
+        return Players.local().healthPercent() < Configs.toEat && !Inventory.stream().id(Configs.food).isEmpty() && !Players.local().healthBarVisible();
     }
 
     @Override
     public int onLoop() {
-        Item wine = Inventory.stream().id(Configs.WINE_ID).first();
-        if (wine.valid()) {
-            wine.interact("Drink");
+        Item food = Inventory.stream().id(Configs.food).first();
+        if (food.valid()) {
+            food.interact("Drink");
+        } else {
+            food.interact("Eat");
             Condition.wait(() -> Players.local().healthPercent() > toEat || Players.local().animation() == -1
                     && !Players.local().inMotion(), 150, 50);
             knockCount = 0;
