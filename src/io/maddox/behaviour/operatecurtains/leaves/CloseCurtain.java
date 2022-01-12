@@ -12,6 +12,7 @@ public class CloseCurtain extends Leaf {
 
     @Override
     public boolean isValid() {
+        openedcurtain = Objects.stream().at(Configs.curtain).id(Configs.openCurtain).nearest().first();
         return Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first().valid()
                 && Configs.house.contains(Players.local()) &&
                 Objects.stream().at(Configs.curtain).id(Configs.openCurtain).nearest().first().valid()

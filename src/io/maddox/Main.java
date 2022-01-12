@@ -61,23 +61,23 @@ import static io.maddox.data.Configs.*;
 @ScriptConfiguration.List(
         {
                 @ScriptConfiguration(
-                        name =  "Percentage to Eat",
+                        name =  "What percentage would you like to eat?",
                         description = "Percentage to nom on food - Default is 50",
                         optionType = OptionType.INTEGER,
                         defaultValue = "50"
                 ),
                 @ScriptConfiguration(
                         name = "Select Bandit",
-                        description = "What Bandit do you want to use? 737 = Bandit (41), 735 = Bandit (56), 3550 = Menaphite thug(55)",
-                        defaultValue = "3550",
+                        description = "What Bandit do you want to BlackJack?",
+                        defaultValue = "Bandit(41)",
                         allowedValues = {"Bandit(41)", "Bandit(56)", "Menaphite thug(55)"},
                         optionType = OptionType.STRING
                 ),
                 @ScriptConfiguration(
                         name = "Select Food to use",
-                        description = "What Food would you like to use?",
+                        description = "What Food would you like to eat?",
                         defaultValue = "Jug of Wine",
-                        allowedValues = {"Shark", "Jug of Wine", "Cake"},
+                        allowedValues = {"Jug of Wine", "Cake", "Shark"},
                         optionType = OptionType.STRING
                 )
         }
@@ -87,13 +87,13 @@ import static io.maddox.data.Configs.*;
 public class Main extends AbstractScript {
 
     public static void main(String[] args) {
-        new ScriptUploader().uploadAndStart("MaddBlackjack", "maddox", "127.0.0.1:5585", true, false);
+        new ScriptUploader().uploadAndStart("MaddBlackjack", "excave", "127.0.0.1:5575", true, false);
     }
     private final Tree tree = new Tree();
 
     @Override
     public void onStart() {
-        int nomming = getOption("Percentage to Eat");
+        int nomming = getOption("What percentage would you like to eat?");
         String bandit = getOption("Select Bandit");
         String foodtouse = getOption("Select Food to use");
         toEat = nomming;
@@ -191,8 +191,10 @@ public class Main extends AbstractScript {
     public static void onMessage(MessageEvent c) {
         String text = c.getMessage();
         if(text.contains("during combat")) {
+            System.out.println("Set to true cantknock");
             cantKnock = true;
         } else if (text.contains("You smack")) {
+            System.out.println("Set to false cantknock");
                 cantKnock = false;
         }
     }
