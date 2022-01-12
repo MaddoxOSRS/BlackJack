@@ -87,7 +87,7 @@ import static io.maddox.data.Configs.*;
 public class Main extends AbstractScript {
 
     public static void main(String[] args) {
-        new ScriptUploader().uploadAndStart("MaddBlackjack", "excave", "127.0.0.1:5575", true, false);
+        new ScriptUploader().uploadAndStart("MaddBlackjack", "maddox", "127.0.0.1:5585", true, false);
     }
     private final Tree tree = new Tree();
 
@@ -191,10 +191,8 @@ public class Main extends AbstractScript {
     public static void onMessage(MessageEvent c) {
         String text = c.getMessage();
         if(text.contains("during combat")) {
-            System.out.println("Set to true cantknock");
             cantKnock = true;
         } else if (text.contains("You smack")) {
-            System.out.println("Set to false cantknock");
                 cantKnock = false;
         }
     }

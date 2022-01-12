@@ -23,10 +23,8 @@ public class Restock extends Leaf {
         if (closedcurtain.valid() && closedcurtain.interact("Open")) {
             Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion() && !closedcurtain.valid(), 50, 50);
         }
-        if (Npcs.stream().within(inMarket).id(Configs.generalStore).nearest().first().valid()) {
             Movement.running(true);
             Movement.step(NoteManager);
-        }
         return 0;
     }
 }
