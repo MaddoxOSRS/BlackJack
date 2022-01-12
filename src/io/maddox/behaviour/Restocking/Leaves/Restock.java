@@ -13,17 +13,17 @@ public class Restock extends Leaf {
     GameObject closedcurtain;
     @Override
     public boolean isValid() {
-        return  !Areas.inMarket.contains(Players.local());
+        return !Areas.inMarket.contains(Players.local());
     }
 
     @Override
     public int onLoop() {
         closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
        Camera.turnTo(closedcurtain);
-        if (closedcurtain.inViewport() && closedcurtain.interact("Open")) {
+        if (closedcurtain.valid() && closedcurtain.interact("Open")) {
             Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion() && !closedcurtain.valid(), 50, 50);
         }
-        if (!Npcs.stream().within(inMarket).id(Configs.generalStore).nearest().first().valid()) {
+        if (Npcs.stream().within(inMarket).id(Configs.generalStore).nearest().first().valid()) {
             Movement.running(true);
             Movement.step(NoteManager);
         }

@@ -12,7 +12,7 @@ public class OperateCurtain extends Leaf {
     @Override
     public boolean isValid() {
 
-        return Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first().valid()
+        return Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first().valid()
                 && !Configs.house.contains(Players.local()) &&
                 Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first().valid();
     }

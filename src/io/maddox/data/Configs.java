@@ -17,7 +17,8 @@ public class Configs {
     public static String status = "waiting";
     public static boolean started = false;
     public static boolean startRun = false;
-    public static int thug;
+    public static String thug;
+    public static int thugID;
     public static String food;
 
     public static int notedfood;
@@ -83,7 +84,7 @@ public class Configs {
     public static int xp = Skills.experience(Constants.SKILLS_THIEVING);
 
     public static boolean ohshit() {
-    return Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage().contains("I'll kill you for that")).isNotEmpty();
+    return Npcs.stream().within(Configs.house).id(Configs.thugID).filter(npc -> npc.overheadMessage().contains("I'll kill you for that")).isNotEmpty();
      }
 
     public static boolean inCombat() {
@@ -99,12 +100,12 @@ public class Configs {
     }
 
     public static boolean snooze() {
-        return Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "Zzzzzz").isNotEmpty();
+        return Npcs.stream().within(Configs.house).id(Configs.thugID).filter(npc -> npc.overheadMessage() == "Zzzzzz").isNotEmpty();
 
     }
 
     public static boolean wotudo() {
-        return Npcs.stream().within(Configs.house).id(Configs.thug).filter(npc -> npc.overheadMessage() == "What do you think ").isNotEmpty();
+        return Npcs.stream().within(Configs.house).id(Configs.thugID).filter(npc -> npc.overheadMessage() == "What do you think ").isNotEmpty();
 
     }
 

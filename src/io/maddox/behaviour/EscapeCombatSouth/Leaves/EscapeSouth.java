@@ -15,7 +15,7 @@ public class EscapeSouth extends Leaf {
 
     @Override
     public boolean isValid() {
-        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
+        bandit = Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first();
         return Configs.cantKnock && Configs.zone == SouthZone
                 || Configs.cantKnock && Configs.zone == SouthZone;
     }

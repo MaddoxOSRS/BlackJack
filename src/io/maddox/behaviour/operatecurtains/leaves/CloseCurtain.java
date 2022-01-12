@@ -12,10 +12,16 @@ public class CloseCurtain extends Leaf {
 
     @Override
     public boolean isValid() {
-        return Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first().valid()
+        return Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first().valid()
                 && Configs.house.contains(Players.local()) &&
                 Objects.stream().at(Configs.curtain).id(Configs.openCurtain).nearest().first().valid()
-                && !Configs.inCombat();
+                && !Configs.inCombat()
+                && !Inventory.stream().name(Configs.food).action("Eat").isEmpty() ||
+                Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first().valid()
+                        && Configs.house.contains(Players.local()) &&
+                        Objects.stream().at(Configs.curtain).id(Configs.openCurtain).nearest().first().valid()
+                        && !Configs.inCombat()
+                        && !Inventory.stream().name(Configs.food).action("Drink").isEmpty();
     }
 
     @Override

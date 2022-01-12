@@ -70,8 +70,8 @@ import static io.maddox.data.Configs.*;
                         name = "Select Bandit",
                         description = "What Bandit do you want to use? 737 = Bandit (41), 735 = Bandit (56), 3550 = Menaphite thug(55)",
                         defaultValue = "3550",
-                        allowedValues = {"737", "735", "3550"},
-                        optionType = OptionType.INTEGER
+                        allowedValues = {"Bandit(41)", "Bandit(56)", "Menaphite thug(55)"},
+                        optionType = OptionType.STRING
                 ),
                 @ScriptConfiguration(
                         name = "Select Food to use",
@@ -94,7 +94,7 @@ public class Main extends AbstractScript {
     @Override
     public void onStart() {
         int nomming = getOption("Percentage to Eat");
-        int bandit = getOption("Select Bandit");
+        String bandit = getOption("Select Bandit");
         String foodtouse = getOption("Select Food to use");
         Configs.toEat = nomming;
         Configs.thug = bandit;
@@ -109,7 +109,8 @@ public class Main extends AbstractScript {
             notedfood = 1892;
         }
 
-        if(bandit == 737){
+        if(bandit == "Bandit(41)"){
+            thugID = 737;
             Configs.house=DYEHOUSE;
             Configs.movement= outsidebanHouse;
             Configs.zone=NorthZone;
@@ -122,7 +123,8 @@ public class Main extends AbstractScript {
             Configs.upstairs=dyeupstairs;
             Configs.downstairs=dyedownstairs;
         }
-        else if(bandit == 735){
+        else if(bandit == "Bandit(56)"){
+            thugID = 735;
            Configs.house=DYEHOUSE;
             Configs.movement= outsidebanHouse;
             Configs.zone=NorthZone;
@@ -135,7 +137,8 @@ public class Main extends AbstractScript {
             Configs.upstairs=dyeupstairs;
             Configs.downstairs=dyedownstairs;
         }
-        else if(bandit == 3550){
+        else if(bandit == "Menaphite thug(55)"){
+            thugID = 3550;
             Configs.house =menaphiteHouse;
             Configs.movement=outsideMenaHouse;
             Configs.zone=SouthZone;

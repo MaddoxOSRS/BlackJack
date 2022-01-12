@@ -9,9 +9,9 @@ public class ActivateKnockout extends Branch {
 
     @Override
     public boolean isValid() {
-        return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
+        return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first())
                 && Configs.house.contains(Players.local())
-                && !Configs.cantKnock;
+                && !Configs.cantKnock || !Configs.house.contains(Players.local());
     }
 
 }

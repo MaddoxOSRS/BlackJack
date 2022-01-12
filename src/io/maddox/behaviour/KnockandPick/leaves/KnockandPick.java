@@ -16,13 +16,13 @@ public class KnockandPick extends Leaf {
 
     @Override
     public boolean isValid() {
-        return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
+        return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first())
                 && !Inventory.stream().name(Configs.food).isEmpty() && Configs.house.contains(Players.local());
     }
 
     @Override
     public int onLoop() {
-        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().firstOrNull();
+        bandit = Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().firstOrNull();
         Camera.turnTo(bandit);
          if (bandit != null && bandit.interact("Knock-Out")) {
                 out.println("Knocking out...");
@@ -37,7 +37,7 @@ public class KnockandPick extends Leaf {
                         Players.local().animation() == 401, 220, 20);
             }
         }
-        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().firstOrNull();
+        bandit = Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().firstOrNull();
                 if (bandit != null && bandit.interact("Pickpocket")) { //Bandit is knocked out, and we've pickpocketed less than twice
                     Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().spotAnimation() < 56, 250, 50);
                     if (Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().spotAnimation() < 56, 250, 50)) {

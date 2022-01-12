@@ -17,10 +17,10 @@ public class Lure extends Leaf {
     public boolean isValid() {
         closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
 
-        return !Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
+        return !Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first())
                 && Configs.zone.contains(Players.local()) && !closedcurtain.valid()
                 && Inventory.stream().name(Configs.food).action("Eat").isNotEmpty()
-                || !Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
+                || !Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first())
                 && Configs.zone.contains(Players.local()) && !closedcurtain.valid()
                 && Inventory.stream().name(Configs.food).action("Drink").isNotEmpty();
     }
@@ -37,7 +37,7 @@ public class Lure extends Leaf {
 
     @Override
     public int onLoop() {
-        bandittoLure = Npcs.stream().within(Configs.missingThug).id(Configs.thug).nearest().first();
+        bandittoLure = Npcs.stream().within(Configs.missingThug).id(Configs.thugID).nearest().first();
         if (!bandittoLure.inViewport()) {
             Camera.turnTo(bandittoLure);
         }

@@ -11,7 +11,7 @@ public class MoveintoHouse extends Leaf {
 
     @Override
     public boolean isValid() {
-        return  Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first().valid() && !Configs.house.contains(Players.local());
+        return  Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first().valid() && !Configs.house.contains(Players.local());
     }
 
     @Override

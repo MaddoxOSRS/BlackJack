@@ -12,7 +12,7 @@ public class OpentoEnterHouse extends Leaf {
     GameObject closedcurtain;
     @Override
     public boolean isValid() {
-        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
+        bandit = Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first();
         closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
 
         return !Configs.house.contains(bandit) &&

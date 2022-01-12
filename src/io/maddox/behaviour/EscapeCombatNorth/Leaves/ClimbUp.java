@@ -13,7 +13,7 @@ public class ClimbUp extends Leaf {
     Npc bandit;
     @Override
     public boolean isValid() {
-        bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first();
+        bandit = Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first();
         return Configs.cantKnock && Configs.zone == NorthZone && Players.local().healthPercent() < Configs.toEat;
     }
 
