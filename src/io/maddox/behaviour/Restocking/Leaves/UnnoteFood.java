@@ -9,7 +9,7 @@ import org.powbot.api.rt4.*;
 import static io.maddox.data.Areas.inMarket;
 import static io.maddox.data.Configs.*;
 
-public class UnnotedWines extends Leaf {
+public class UnnoteFood extends Leaf {
     Npc banknotemanager;
     Item notedfood;
     @Override
@@ -28,11 +28,11 @@ public class UnnotedWines extends Leaf {
             if (Game.tab(Game.Tab.INVENTORY)) {
                 if (notedfood.interact("Use")
                         && banknotemanager.interact("Use",true)) {
-                    Condition.wait(Chat::chatting, 250, 150);
+                    Condition.wait(Chat::chatting, 100, 50);
                 }
                 if (Widgets.widget(bankNoteManagerWidget).component(banknotemanagerselectioncomponent).component(bankNotemanagerALLComponent).visible()) {
                     Widgets.widget(bankNoteManagerWidget).component(banknotemanagerselectioncomponent).component(bankNotemanagerALLComponent).click();
-                    Condition.wait(() -> Inventory.isFull(), 250, 150);
+                    Condition.wait(() -> Inventory.isFull(), 100, 50);
                     cantKnock = false;
                     knockCount = 0;
                 }

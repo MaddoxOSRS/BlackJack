@@ -113,15 +113,6 @@ public class Configs {
         return Players.stream().filter(x->!x.equals(Players.local())).within(Configs.house).isNotEmpty();
 
     }
-
-    public static String getFood() {
-        return food;
-    }
-
-    public static void setFood(String food) {
-        Configs.food = food;
-    }
-
     //world switcher
     public static int loggedintoWorld() {
         String world_text = Widgets.widget(69).component(2).text();

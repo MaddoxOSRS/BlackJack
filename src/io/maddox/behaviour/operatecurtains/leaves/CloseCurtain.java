@@ -25,7 +25,8 @@ public class CloseCurtain extends Leaf {
         if (Npcs.stream().interactingWithMe().isEmpty() && openedcurtain.valid()
                 || !Npcs.stream().interactingWithMe().isEmpty() && openedcurtain.valid()) {
             System.out.println("Closing curtain...");
-            if (!openedcurtain.interact("Close")) {
+            if (openedcurtain.valid()) {
+                openedcurtain.interact("Close");
                 Condition.wait(() -> !openedcurtain.valid()
                         && !Players.local().inMotion(), 250, 50);
             }

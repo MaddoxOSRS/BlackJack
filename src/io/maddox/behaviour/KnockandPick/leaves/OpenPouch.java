@@ -12,7 +12,7 @@ import org.powbot.api.rt4.Players;
 public class OpenPouch extends Leaf {
     @Override
     public boolean isValid() {
-        return Inventory.stream().name(Configs.moneyPouch).count() >= 1;
+        return Inventory.stream().name(Configs.moneyPouch).count() == 28;
     }
 
     @Override

@@ -7,8 +7,6 @@ import io.maddox.behaviour.EscapeCombatNorth.Leaves.ClimbUp;
 import io.maddox.behaviour.EscapeCombatSouth.ActivateEscapeSouth;
 import io.maddox.behaviour.EscapeCombatSouth.Leaves.ClimbDownSouth;
 import io.maddox.behaviour.EscapeCombatSouth.Leaves.EscapeSouth;
-import io.maddox.behaviour.HopWorlds.ActivateWorldHop;
-import io.maddox.behaviour.HopWorlds.Leaves.HopWorld;
 import io.maddox.behaviour.KnockandPick.ActivateKnockout;
 import io.maddox.behaviour.KnockandPick.leaves.Eat;
 import io.maddox.behaviour.KnockandPick.leaves.KnockandPick;
@@ -20,7 +18,7 @@ import io.maddox.behaviour.KnockandPick.leaves.MovetoBandit;
 import io.maddox.behaviour.Restocking.ActivatetoRestock;
 import io.maddox.behaviour.Restocking.Leaves.Restock;
 import io.maddox.behaviour.Restocking.Leaves.SellEmptyjugs;
-import io.maddox.behaviour.Restocking.Leaves.UnnotedWines;
+import io.maddox.behaviour.Restocking.Leaves.UnnoteFood;
 import io.maddox.behaviour.fallback.FallbackLeaf;
 import io.maddox.behaviour.firstrun.FirsRunBranch;
 import io.maddox.behaviour.firstrun.Leaves.StartLeaf;
@@ -89,7 +87,7 @@ import static io.maddox.data.Configs.*;
 public class Main extends AbstractScript {
 
     public static void main(String[] args) {
-        new ScriptUploader().uploadAndStart("MaddBlackjack", "excave", "127.0.0.1:5575", true, false);
+        new ScriptUploader().uploadAndStart("MaddBlackjack", "maddox", "127.0.0.1:5585", true, false);
     }
     private final Tree tree = new Tree();
 
@@ -154,8 +152,8 @@ public class Main extends AbstractScript {
         Paint p = new PaintBuilder()
                 .addString("Branch:" , () -> Configs.currentBranch )
                 .addString("Leaf:" , () -> Configs.currentLeaf )
+                .addString("Food selected:" , () -> food)
                 .trackSkill(Skill.Thieving)
-                .trackInventoryItem(995)
                 .x(30)
                 .y(50)
                 .build();
@@ -171,7 +169,7 @@ public class Main extends AbstractScript {
                 new ActivateCurtain().addLeafs(new OperateCurtain(), new CloseCurtain()),
                 new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),
                 new ActivateEscapeSouth().addLeafs(new EscapeSouth(), new ClimbDownSouth()),
-                new ActivatetoRestock().addLeafs(new Restock(), new UnnotedWines(), new SellEmptyjugs()),
+                new ActivatetoRestock().addLeafs(new Restock(), new UnnoteFood(), new SellEmptyjugs()),
                 new ActivateLure().addLeafs(new Lure(), new MoveintoHouse(), new OpentoEnterHouse()),
                 new ActivateKnockout().addLeafs(new Eat(), new KnockandPick(), new MovetoBandit()),
                 new FallbackLeaf());

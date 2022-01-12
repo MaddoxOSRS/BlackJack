@@ -26,8 +26,8 @@ public class SellEmptyjugs extends Leaf {
             Condition.wait(() -> Widgets.widget(generalstorewindowWidget).component(generalstoremainComponent).visible(), 250, 150);
             if (Widgets.widget(generalstorewindowWidget).component(generalstoremainComponent).visible()) {
                 Inventory.stream().name(jug).first().interact("Sell 50");
-                Condition.wait(() -> Inventory.stream().name(jug).isEmpty(), 250, 150);
-                if (Condition.wait(() -> Inventory.stream().name(jug).isEmpty(), 250, 150)) {
+                Condition.wait(() -> Inventory.stream().name(jug).isEmpty(), 100, 50);
+                if (Condition.wait(() -> Inventory.stream().name(jug).isEmpty(), 100, 50)) {
                     Widgets.widget(generalstorewindowWidget).component(generalstoremainComponent).component(generatlstoreEXITcomponent).click();
                 }
             }

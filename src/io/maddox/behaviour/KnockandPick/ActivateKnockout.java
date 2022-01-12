@@ -16,7 +16,7 @@ public class ActivateKnockout extends Branch {
                 && Configs.house.contains(Players.local()) && !Configs.cantKnock &&
                 closedcurtain.valid() || Players.local().healthPercent() < Configs.toEat || Players.local().healthPercent() < Configs.toEat
                 && !Inventory.stream().name(Configs.food).action("Eat").isEmpty()||
-                Players.local().healthPercent() < Configs.toEat && !Inventory.stream().name(Configs.food).action("Drink").isEmpty() || Inventory.stream().name(Configs.moneyPouch).count() <= 15;
+                Players.local().healthPercent() < Configs.toEat && !Inventory.stream().name(Configs.food).action("Drink").isEmpty() || Inventory.stream().name(Configs.moneyPouch).count() == 28;
     }
 
 }
