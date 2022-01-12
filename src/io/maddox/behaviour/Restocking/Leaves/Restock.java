@@ -18,6 +18,7 @@ public class Restock extends Leaf {
     @Override
     public int onLoop() {
         closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
+       Camera.turnTo(closedcurtain);
         if (closedcurtain.inViewport() && closedcurtain.interact("Open")) {
             Condition.wait(() -> Players.local().animation() == -1 && !Players.local().inMotion() && !closedcurtain.valid(), 350, 75);
         }

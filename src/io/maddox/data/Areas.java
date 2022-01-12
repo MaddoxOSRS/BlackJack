@@ -30,7 +30,7 @@ public class Areas {
     public static final Area dyeupstairs = new Area(new Tile(3353, 3006, 1),new Tile(3368, 2998, 1));
 
     //Tiles
-
+    public static final Tile noteManager = new Tile(3357, 2990, 0);
     public static final Tile dyedownstairs = new Tile(3364, 3002, 0);
     public static final Tile menaDownstairstile = new Tile(3353, 2961, 0);
     public static final Tile NoteManager = new Tile(3359, 2989, 0);

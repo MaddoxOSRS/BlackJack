@@ -22,9 +22,12 @@ public class UnnotedWines extends Leaf {
     public int onLoop() {
         notedfood = Inventory.stream().id(Configs.notedfood).first();
         banknotemanager = Npcs.stream().within(inMarket).id(Configs.noteManager).nearest().first();
+        Movement.walkTo(Areas.noteManager);
+        Camera.turnTo(banknotemanager);
         if (banknotemanager.valid()) {
             if (Game.tab(Game.Tab.INVENTORY)) {
-                if (notedfood.interact("Use") && banknotemanager.interact("Use")) {
+                if (notedfood.interact("Use")
+                        && banknotemanager.interact("Use",true)) {
                     Condition.wait(Chat::chatting, 250, 150);
                 }
                 if (Widgets.widget(bankNoteManagerWidget).component(banknotemanagerselectioncomponent).component(bankNotemanagerALLComponent).visible()) {

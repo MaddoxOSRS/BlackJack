@@ -26,7 +26,7 @@ public class Eat extends Leaf {
         if (food.valid()) {
             if (food.actions().size() > 0) {
                 if (food.interact(food.actions().get(0))) { //Interacts with first option, I.E. Eat, or Drink
-                    Condition.wait(() -> Players.local().healthPercent() > toEat, 500, 25);
+                    Condition.wait(() -> Players.local().healthPercent() > toEat, 50, 50);
                     knockCount = 0;
                 }
              }

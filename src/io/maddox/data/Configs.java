@@ -1,10 +1,10 @@
 package io.maddox.data;
 
 
-import org.powbot.api.Area;
-import org.powbot.api.Condition;
-import org.powbot.api.Tile;
+import org.powbot.api.*;
 import org.powbot.api.rt4.*;
+
+import java.util.Arrays;
 
 import static java.lang.System.currentTimeMillis;
 

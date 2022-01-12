@@ -70,7 +70,7 @@ import static io.maddox.data.Configs.*;
                 ),
                 @ScriptConfiguration(
                         name = "Select Bandit",
-                        description = "What Bandit do you want to use? 737 = Bandit (41), 739 = Bandit (56), 3550 = Menaphite thug(55)",
+                        description = "What Bandit do you want to use? 737 = Bandit (41), 735 = Bandit (56), 3550 = Menaphite thug(55)",
                         defaultValue = "3550",
                         allowedValues = {"737", "735", "3550"},
                         optionType = OptionType.INTEGER
@@ -79,7 +79,7 @@ import static io.maddox.data.Configs.*;
                         name = "Select Food to use",
                         description = "What Food would you like to use?",
                         defaultValue = "Jug of Wine",
-                        allowedValues = {"Shark", "Jug of Wine"},
+                        allowedValues = {"Shark", "Jug of Wine", "Cake"},
                         optionType = OptionType.STRING
                 )
         }
@@ -89,7 +89,7 @@ import static io.maddox.data.Configs.*;
 public class Main extends AbstractScript {
 
     public static void main(String[] args) {
-        new ScriptUploader().uploadAndStart("MaddBlackjack", "excave", "127.0.0.1:5575", true, true);
+        new ScriptUploader().uploadAndStart("MaddBlackjack", "excave", "127.0.0.1:5575", true, false);
     }
     private final Tree tree = new Tree();
 
@@ -106,6 +106,9 @@ public class Main extends AbstractScript {
         }
         else if (food == "Jug of Wine"){
             notedfood = 1994;
+        }
+        else if (food == "Cake"){
+            notedfood = 1892;
         }
 
         if(bandit == 737){
@@ -163,7 +166,7 @@ public class Main extends AbstractScript {
     private void instantiateTree() {
         tree.addBranches(
                 new TimeoutLeaf(),
-               new ActivateWorldHop().addLeafs(new HopWorld()), /* in testing */
+         //      new ActivateWorldHop().addLeafs(new HopWorld()), /* in testing */
                 new FirsRunBranch().addLeafs(new StartLeaf()),
                 new ActivateCurtain().addLeafs(new OperateCurtain(), new CloseCurtain()),
                 new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),
