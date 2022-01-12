@@ -96,8 +96,8 @@ public class Main extends AbstractScript {
         int nomming = getOption("Percentage to Eat");
         String bandit = getOption("Select Bandit");
         String foodtouse = getOption("Select Food to use");
-        Configs.toEat = nomming;
-        Configs.thug = bandit;
+        toEat = nomming;
+        thug = bandit;
         food = foodtouse;
         if (food == "Shark"){
             notedfood = 386;
@@ -111,47 +111,47 @@ public class Main extends AbstractScript {
 
         if(bandit == "Bandit(41)"){
             thugID = 737;
-            Configs.house=DYEHOUSE;
-            Configs.movement= outsidebanHouse;
-            Configs.zone=NorthZone;
-            Configs.zoneupstairs=NorthZoneupstairs;
-            Configs.missingThug=DYEHOUSE2;
-            Configs.curtain=Curtain;
-            Configs.lure=dyetoLure;
-            Configs.escapeup= dyeLadderdownstairs;
-            Configs.escapedown= dyeLadderupstairs;
-            Configs.upstairs=dyeupstairs;
-            Configs.downstairs=dyedownstairs;
+            house=DYEHOUSE;
+            movement= outsidebanHouse;
+            zone=NorthZone;
+            zoneupstairs=NorthZoneupstairs;
+            missingThug=DYEHOUSE2;
+            curtain=Curtain;
+            lure=dyetoLure;
+            escapeup= dyeLadderdownstairs;
+            escapedown= dyeLadderupstairs;
+            upstairs=dyeupstairs;
+            downstairs=dyedownstairs;
         }
         else if(bandit == "Bandit(56)"){
             thugID = 735;
-           Configs.house=DYEHOUSE;
-            Configs.movement= outsidebanHouse;
-            Configs.zone=NorthZone;
-            Configs.zoneupstairs=NorthZoneupstairs;
-            Configs.missingThug=DYEHOUSE2;
-            Configs.curtain=Curtain;
-            Configs.lure=dyetoLure;
-            Configs.escapeup= dyeLadderdownstairs;
-            Configs.escapedown= dyeLadderupstairs;
-            Configs.upstairs=dyeupstairs;
-            Configs.downstairs=dyedownstairs;
+           house=DYEHOUSE;
+            movement= outsidebanHouse;
+            zone=NorthZone;
+            zoneupstairs=NorthZoneupstairs;
+            missingThug=DYEHOUSE2;
+            curtain=Curtain;
+            lure=dyetoLure;
+            escapeup= dyeLadderdownstairs;
+            escapedown= dyeLadderupstairs;
+            upstairs=dyeupstairs;
+            downstairs=dyedownstairs;
         }
         else if(bandit == "Menaphite thug(55)"){
             thugID = 3550;
-            Configs.house =menaphiteHouse;
-            Configs.movement=outsideMenaHouse;
-            Configs.zone=SouthZone;
-            Configs.zoneupstairs=SouthZoneupstairs;
-            Configs.missingThug= menaphiteArea;
-            Configs.curtain=menaCurtain;
-            Configs.lure=menatoLure;
-            Configs.escapeup=menaStairs;
-            Configs.escapedown=menaUpStairstile;
-            Configs.upstairs=menaUpstairs;
-            Configs.downstairsMena=menaDownstairs;
+            house =menaphiteHouse;
+            movement=outsideMenaHouse;
+            zone=SouthZone;
+            zoneupstairs=SouthZoneupstairs;
+            missingThug= menaphiteArea;
+            curtain=menaCurtain;
+            lure=menatoLure;
+            escapeup=menaStairs;
+            escapedown=menaUpStairstile;
+            upstairs=menaUpstairs;
+            downstairsMena=menaDownstairs;
         }
-        Configs.timeIdle = System.currentTimeMillis();
+        timeIdle = System.currentTimeMillis();
         Paint p = new PaintBuilder()
                 .addString("Branch:" , () -> Configs.currentBranch )
                 .addString("Leaf:" , () -> Configs.currentLeaf )
