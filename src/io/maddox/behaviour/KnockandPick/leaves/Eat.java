@@ -16,19 +16,17 @@ public class Eat extends Leaf {
     @Override
     public boolean isValid() {
         return Players.local().healthPercent() < Configs.toEat
-                && !Inventory.stream().name(Configs.food).action("Eat").isEmpty()
-                && !Players.local().healthBarVisible() ||
-                Players.local().healthPercent() < Configs.toEat && !Inventory.stream().name(Configs.food).action("Drink").isEmpty() && !Players.local().healthBarVisible();
+                && !Inventory.stream().name(Configs.food).action("Eat").isEmpty()||
+                Players.local().healthPercent() < Configs.toEat && !Inventory.stream().name(Configs.food).action("Drink").isEmpty();
     }
 
     @Override
     public int onLoop() {
-        Item food = Inventory.stream().filtered(item -> item.valid() && !item.stackable() && (item.actions().contains("Eat") || item.actions().contains("Drink"))).first();
+        Item food = Inventory.stream().filtered(i -> i.valid() && !i.stackable() && (i.actions().contains("Eat") || i.actions().contains("Drink"))).first();
         if (food.valid()) {
             if (food.actions().size() > 0) {
-                if (food.interact(food.actions().get(0))) {
-                    Condition.wait(() -> Players.local().healthPercent() > toEat || Players.local().animation() == -1
-                            && !Players.local().inMotion(), 150, 50);
+                if (food.interact(food.actions().get(0))) { //Interacts with first option, I.E. Eat, or Drink
+                    Condition.wait(() -> Players.local().healthPercent() > toEat, 500, 25);
                     knockCount = 0;
                 }
              }

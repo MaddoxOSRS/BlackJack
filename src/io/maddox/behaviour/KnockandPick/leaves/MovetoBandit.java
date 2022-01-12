@@ -12,7 +12,7 @@ public class MovetoBandit extends Leaf {
 
     @Override
     public boolean isValid() {
-        return Inventory.stream().name(Configs.food).isNotEmpty() && !Configs.house.contains(Players.local());
+        return Inventory.stream().name(Configs.food).action("Eat").isNotEmpty() && !Configs.house.contains(Players.local()) || Inventory.stream().name(Configs.food).action("Drink").isNotEmpty() && !Configs.house.contains(Players.local());
     }
 
     @Override

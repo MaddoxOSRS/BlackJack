@@ -7,6 +7,8 @@ import io.maddox.behaviour.EscapeCombatNorth.Leaves.ClimbUp;
 import io.maddox.behaviour.EscapeCombatSouth.ActivateEscapeSouth;
 import io.maddox.behaviour.EscapeCombatSouth.Leaves.ClimbDownSouth;
 import io.maddox.behaviour.EscapeCombatSouth.Leaves.EscapeSouth;
+import io.maddox.behaviour.HopWorlds.ActivateWorldHop;
+import io.maddox.behaviour.HopWorlds.Leaves.HopWorld;
 import io.maddox.behaviour.KnockandPick.ActivateKnockout;
 import io.maddox.behaviour.KnockandPick.leaves.Eat;
 import io.maddox.behaviour.KnockandPick.leaves.KnockandPick;
@@ -69,7 +71,7 @@ import static io.maddox.data.Configs.*;
                 @ScriptConfiguration(
                         name = "Select Bandit",
                         description = "What Bandit do you want to use? 737 = Bandit (41), 739 = Bandit (56), 3550 = Menaphite thug(55)",
-                        defaultValue = "735",
+                        defaultValue = "3550",
                         allowedValues = {"737", "735", "3550"},
                         optionType = OptionType.INTEGER
                 ),
@@ -87,7 +89,7 @@ import static io.maddox.data.Configs.*;
 public class Main extends AbstractScript {
 
     public static void main(String[] args) {
-        new ScriptUploader().uploadAndStart("MaddBlackjack", "excave", "127.0.0.1:5575", true, false);
+        new ScriptUploader().uploadAndStart("MaddBlackjack", "excave", "127.0.0.1:5575", true, true);
     }
     private final Tree tree = new Tree();
 
@@ -99,6 +101,12 @@ public class Main extends AbstractScript {
         Configs.toEat = nomming;
         Configs.thug = bandit;
         food = foodtouse;
+        if (food == "Shark"){
+            notedfood = 386;
+        }
+        else if (food == "Jug of Wine"){
+            notedfood = 1994;
+        }
 
         if(bandit == 737){
             Configs.house=DYEHOUSE;
@@ -155,7 +163,7 @@ public class Main extends AbstractScript {
     private void instantiateTree() {
         tree.addBranches(
                 new TimeoutLeaf(),
-            //    new ActivateWorldHop().addLeafs(new HopWorld()), /* in testing */
+               new ActivateWorldHop().addLeafs(new HopWorld()), /* in testing */
                 new FirsRunBranch().addLeafs(new StartLeaf()),
                 new ActivateCurtain().addLeafs(new OperateCurtain(), new CloseCurtain()),
                 new ActivateEscape().addLeafs(new ClimbUp(), new ClimbDown()),
@@ -163,7 +171,6 @@ public class Main extends AbstractScript {
                 new ActivatetoRestock().addLeafs(new Restock(), new UnnotedWines(), new SellEmptyjugs()),
                 new ActivateLure().addLeafs(new Lure(), new MoveintoHouse(), new OpentoEnterHouse()),
                 new ActivateKnockout().addLeafs(new Eat(), new KnockandPick(), new MovetoBandit()),
-             //   new ActivateMovetoBandit().addLeafs(new MovetoBandit()),
                 new FallbackLeaf());
     }
 

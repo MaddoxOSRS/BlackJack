@@ -19,7 +19,10 @@ public class Lure extends Leaf {
 
         return !Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
                 && Configs.zone.contains(Players.local()) && !closedcurtain.valid()
-                && Inventory.stream().name(Configs.food).isNotEmpty();
+                && Inventory.stream().name(Configs.food).action("Eat").isNotEmpty()
+                || !Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
+                && Configs.zone.contains(Players.local()) && !closedcurtain.valid()
+                && Inventory.stream().name(Configs.food).action("Drink").isNotEmpty();
     }
 
     int banditLureWidget = 231;

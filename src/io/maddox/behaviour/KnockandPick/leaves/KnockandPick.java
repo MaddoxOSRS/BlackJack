@@ -25,35 +25,26 @@ public class KnockandPick extends Leaf {
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().firstOrNull();
          if (bandit != null && bandit.interact("Knock-Out")) {
                 out.println("Knocking out...");
-             pickCount = 0;
-                Condition.wait(() ->
-                        Players.local().animation() == 401, 75, 50);
-             knockCount++;
+                Condition.wait(() -> xp < Constants.SKILLS_THIEVING ||
+                        Players.local().animation() == 401, 200, 20);
             }
         if (Configs.ohshit()) {
             System.out.println("Yeeted for the ohshit");
-            knockCount = 0;
             if (bandit != null && bandit.interact("Knock-Out")) {
                 out.println("Knocking out...");
-                pickCount = 0;
-                knockCount++;
-                Condition.wait(() ->
-                        Players.local().animation() == 401, 50, 50);
+                Condition.wait(() -> xp < Constants.SKILLS_THIEVING ||
+                        Players.local().animation() == 401, 200, 20);
             }
         }
         bandit = Npcs.stream().within(Configs.house).id(Configs.thug).nearest().firstOrNull();
-            if (knockCount >= 1) {
-                if (bandit.interact("Pickpocket")) { //Bandit is knocked out, and we've pickpocketed less than twice
-                    pickCount++;
-                    Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().animation() == -1
-                            && !Players.local().inMotion(), 300, 50);
-                    bandit.interact("Pickpocket");
-                    pickCount++;
-                    knockCount = 0;
-                    System.out.println("Pickpocketing...");
-                    Condition.wait(() -> bandit.animation() <= 808, 425, 5);
-            }
-        }
+                if (bandit != null && bandit.interact("Pickpocket")) { //Bandit is knocked out, and we've pickpocketed less than twice
+                    Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().spotAnimation() < 56, 200, 20);
+                    if (Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().spotAnimation() < 56, 200, 20)) {
+                        bandit.interact("Pickpocket");
+                        System.out.println("Pickpocketing...");
+                        Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().spotAnimation() < 56, 500, 10);
+                    }
+                }
             return 0;
         }
 }

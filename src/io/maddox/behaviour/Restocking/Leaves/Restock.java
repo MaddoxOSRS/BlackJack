@@ -7,15 +7,12 @@ import org.powbot.api.Condition;
 import org.powbot.api.rt4.*;
 
 import static io.maddox.data.Areas.NoteManager;
-import static io.maddox.data.Configs.inCombat;
 
 public class Restock extends Leaf {
-
-    Npc generalstore;
     GameObject closedcurtain;
     @Override
     public boolean isValid() {
-        return Inventory.stream().name(Configs.food).isEmpty() && !inCombat()  && !Areas.inMarket.contains(Players.local());
+        return  !Areas.inMarket.contains(Players.local());
     }
 
     @Override

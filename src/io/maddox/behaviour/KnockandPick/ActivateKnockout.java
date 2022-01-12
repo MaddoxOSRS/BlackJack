@@ -12,9 +12,11 @@ public class ActivateKnockout extends Branch {
     public boolean isValid() {
         closedcurtain = Objects.stream().at(Configs.curtain).id(Configs.closedCurtain).nearest().first();
         return Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thug).nearest().first())
-                && !Inventory.stream().name(Configs.food).isEmpty()
+                && Inventory.stream().name(Configs.food).action("Eat").isNotEmpty()
                 && Configs.house.contains(Players.local()) && !Configs.cantKnock &&
-                closedcurtain.valid() || Players.local().healthPercent() < Configs.toEat || Inventory.stream().name(Configs.food).isNotEmpty() && !Configs.house.contains(Players.local()) || Inventory.stream().name(Configs.moneyPouch).count() <= 15;
+                closedcurtain.valid() || Players.local().healthPercent() < Configs.toEat || Players.local().healthPercent() < Configs.toEat
+                && !Inventory.stream().name(Configs.food).action("Eat").isEmpty()||
+                Players.local().healthPercent() < Configs.toEat && !Inventory.stream().name(Configs.food).action("Drink").isEmpty() || Inventory.stream().name(Configs.moneyPouch).count() <= 15;
     }
 
 }
