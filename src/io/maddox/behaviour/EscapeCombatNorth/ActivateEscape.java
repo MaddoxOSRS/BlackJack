@@ -16,7 +16,7 @@ public class ActivateEscape extends Branch {
     @Override
     public boolean isValid() {
         bandit = Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first();
-        return Configs.cantKnock && Configs.zone == NorthZone && Players.local().healthPercent() < Configs.toEat ||
+        return Configs.cantKnock && Configs.zone == NorthZone ||
                 !Configs.timetoJet() && Configs.upstairs.contains(Players.local()) && Configs.zoneupstairs == NorthZoneupstairs;
     }
 }

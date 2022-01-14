@@ -4,8 +4,6 @@ package io.maddox.data;
 import org.powbot.api.*;
 import org.powbot.api.rt4.*;
 
-import java.util.Arrays;
-
 import static java.lang.System.currentTimeMillis;
 
 public class Configs {
@@ -22,6 +20,9 @@ public class Configs {
     public static String food;
 
     public static int notedfood;
+    public static Item eat = Inventory.stream().filtered(i -> i.valid() && !i.stackable() && (i.actions().contains("Eat"))).first();
+      public static Item foodAction;
+    public static  Item drink = Inventory.stream().filtered(i -> i.valid() && !i.stackable() && (i.actions().contains("Drink"))).first();
     public static Area house;
     public static Tile movement;
     public static Tile curtain;
@@ -59,13 +60,14 @@ public class Configs {
     }
 
     //int stuff
-   public static int bankNoteManagerWidget = 219;
-  public static  int banknotemanagerselectioncomponent = 1;
-  public static  int bankNotemanagerALLComponent = 3;
-   public static int generalstorewindowWidget = 300;
-  public static  int generalstoremainComponent = 1;
-   public static int generatlstoreEXITcomponent = 11;
-  public static  int generalstoreNameComponent = 16;
+
+    public static String banditbusy = "I'm busy";
+    public static String optionLure = "Lure";
+    public static String banditWhatisit = "What is it";
+    public static String playerFollowme = "Follow me";
+
+
+
     public static String moneyPouch = "Coin Pouch";
     public static String jug = "Jug";
     public static int climbdownladder = 6260;

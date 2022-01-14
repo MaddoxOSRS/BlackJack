@@ -16,8 +16,7 @@ public class ActivateEscapeSouth extends Branch {
     @Override
     public boolean isValid() {
         bandit = Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first();
-        return Configs.cantKnock && Configs.zone == SouthZone
-                || Configs.cantKnock && Configs.zone == SouthZone ||
+        return Configs.cantKnock && Configs.zone == SouthZone ||
                 !Configs.timetoJet() && Configs.upstairs.contains(Players.local()) && Configs.zoneupstairs == SouthZoneupstairs;
     }
 }

@@ -8,7 +8,6 @@ import org.powbot.api.rt4.*;
 import static io.maddox.data.Areas.SouthZone;
 import static io.maddox.data.Areas.menaStairs;
 import static io.maddox.data.Configs.cantKnock;
-import static io.maddox.data.Configs.knockCount;
 
 public class EscapeSouth extends Leaf {
     Npc bandit;
@@ -16,8 +15,7 @@ public class EscapeSouth extends Leaf {
     @Override
     public boolean isValid() {
         bandit = Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first();
-        return Configs.cantKnock && Configs.zone == SouthZone
-                || Configs.cantKnock && Configs.zone == SouthZone;
+        return Configs.cantKnock && Configs.zone == SouthZone;
     }
 
 
@@ -38,7 +36,6 @@ public class EscapeSouth extends Leaf {
                             System.out.println("firing inside");
                             stairsdownstairs.interact("Climb-up");
                             Condition.wait(() -> Configs.upstairs.contains(Players.local()), 250, 10);
-                        knockCount = 0;
                         cantKnock = false;
         }
         return 0;

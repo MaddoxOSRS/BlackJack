@@ -23,13 +23,13 @@ public class SellEmptyjugs extends Leaf {
         generalstore = Npcs.stream().within(inMarket).id(Configs.generalStore).nearest().first();
         if (generalstore.valid()) {
             generalstore.interact("Trade");
-            Condition.wait(() -> Widgets.widget(generalstorewindowWidget).component(generalstoremainComponent).visible(), 250, 150);
-            if (Widgets.widget(generalstorewindowWidget).component(generalstoremainComponent).visible()) {
+            Condition.wait(() -> Store.opened(), 250, 150);
+            if (Store.opened()) {
                 Inventory.stream().name(jug).first().interact("Sell 50");
                 Condition.wait(() -> Inventory.stream().name(jug).isEmpty(), 100, 50);
-                if (Condition.wait(() -> Inventory.stream().name(jug).isEmpty(), 100, 50)) {
-                    Widgets.widget(generalstorewindowWidget).component(generalstoremainComponent).component(generatlstoreEXITcomponent).click();
-                }
+                if (Inventory.stream().name(jug).isEmpty()) {
+                    Store.close();
+                     }
             }
         }
         return 0;

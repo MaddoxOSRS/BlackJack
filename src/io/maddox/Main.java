@@ -32,6 +32,8 @@ import io.maddox.framework.Tree;
 import org.powbot.api.event.BreakEvent;
 import org.powbot.api.event.MessageEvent;
 import org.powbot.api.event.SkillExpGainedEvent;
+import org.powbot.api.rt4.Inventory;
+import org.powbot.api.rt4.Item;
 import org.powbot.api.rt4.Players;
 import org.powbot.api.rt4.walking.model.Skill;
 import org.powbot.api.script.AbstractScript;
@@ -101,12 +103,17 @@ public class Main extends AbstractScript {
         food = foodtouse;
         if (food == "Shark"){
             notedfood = 386;
+            foodAction = Inventory.stream().filtered(i -> i.valid() && !i.stackable() && (i.actions().contains("Eat"))).first();
         }
         else if (food == "Jug of Wine"){
             notedfood = 1994;
+            foodAction = Inventory.stream().filtered(i -> i.valid() && !i.stackable() && (i.actions().contains("Drink"))).first();
+
         }
         else if (food == "Cake"){
             notedfood = 1892;
+            foodAction = Inventory.stream().filtered(i -> !i.stackable() && (i.actions().contains("Eat"))).first();
+
         }
 
         if(bandit == "Bandit(41)"){

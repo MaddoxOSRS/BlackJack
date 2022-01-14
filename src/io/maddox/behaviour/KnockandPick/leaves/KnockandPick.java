@@ -39,12 +39,10 @@ public class KnockandPick extends Leaf {
         }
         bandit = Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().firstOrNull();
                 if (bandit != null && bandit.interact("Pickpocket")) { //Bandit is knocked out, and we've pickpocketed less than twice
-                    Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().spotAnimation() < 56, 250, 50);
-                    if (Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().spotAnimation() < 56, 250, 50)) {
-                        bandit.interact("Pickpocket");
+                    Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().spotAnimation() < 56, 650, 20);
+                  bandit.interact("Pickpocket");
                         System.out.println("Pickpocketing...");
-                        Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().spotAnimation() < 56, 500, 50);
-                    }
+                        Condition.wait(() -> xp < Constants.SKILLS_THIEVING || Players.local().spotAnimation() < 56, 650, 20);
                 }
             return 0;
         }

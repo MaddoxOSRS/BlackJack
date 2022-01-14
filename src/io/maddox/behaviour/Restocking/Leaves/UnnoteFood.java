@@ -8,6 +8,7 @@ import org.powbot.api.rt4.*;
 
 import static io.maddox.data.Areas.inMarket;
 import static io.maddox.data.Configs.*;
+import static io.maddox.data.WidgetnComponentConstants.*;
 
 public class UnnoteFood extends Leaf {
     Npc banknotemanager;
@@ -34,7 +35,6 @@ public class UnnoteFood extends Leaf {
                     Widgets.widget(bankNoteManagerWidget).component(banknotemanagerselectioncomponent).component(bankNotemanagerALLComponent).click();
                     Condition.wait(() -> Inventory.isFull(), 100, 50);
                     cantKnock = false;
-                    knockCount = 0;
                 }
             }
         }

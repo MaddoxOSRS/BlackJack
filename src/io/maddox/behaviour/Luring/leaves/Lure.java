@@ -6,7 +6,8 @@ import org.powbot.api.Condition;
 import org.powbot.api.Random;
 import org.powbot.api.rt4.*;
 
-
+import static io.maddox.data.Configs.*;
+import static io.maddox.data.WidgetnComponentConstants.*;
 
 public class Lure extends Leaf {
 
@@ -19,21 +20,8 @@ public class Lure extends Leaf {
 
         return !Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first())
                 && Configs.zone.contains(Players.local()) && !closedcurtain.valid()
-                && Inventory.stream().name(Configs.food).action("Eat").isNotEmpty()
-                || !Configs.house.contains(Npcs.stream().within(Configs.house).id(Configs.thugID).nearest().first())
-                && Configs.zone.contains(Players.local()) && !closedcurtain.valid()
-                && Inventory.stream().name(Configs.food).action("Drink").isNotEmpty();
+                && !Inventory.stream().action("Eat","Drink").isEmpty();
     }
-
-    int banditLureWidget = 231;
-    int banditLureComponent = 5;
-    int playerlureWidget = 217;
-    int playerlureComponent = 5;
-
-    String banditbusy = "I'm busy";
-    String optionLure = "Lure";
-    String banditWhatisit = "What is it";
-    String playerFollowme = "Follow me";
 
     @Override
     public int onLoop() {
